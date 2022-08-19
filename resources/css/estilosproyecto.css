@@ -1,0 +1,66 @@
+/* body {
+    font-family: verdana, arial !important;
+    border: 10px !important;
+} */
+
+/* #cabece {
+    font-family: verdana, arial !important;
+    background-color: midnightblue !important;
+    color: rgb(210, 20, 20) !important;
+    padding: 0 !important;
+    border: 0 !important;
+    height: 1em !important;
+} */
+/* #portada {
+    background-color: bisque;
+    height: 100vh;
+    width: 50%;
+} */
+/* #anuncios {
+    background-color:aqua;
+    height: 100vh;
+    width:50%;
+} */
+
+/* .nav-item a:hover {
+    background-color: royalblue !important;
+} */
+
+/* .nav-item a {
+    color: rgb(255, 255, 255) !important;
+    background-color: midnightblue !important;
+    font-weight: bold !important;
+} */
+/* .nav-item span {
+    color: rgb(245, 19, 19) !important;
+    background-color: midnightblue !important;
+    font-weight: bold !important;
+} */
+
+/* div  { */
+/* .card:hover { */
+/* box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2) !important; */
+/* max-width: 50px; */
+/* display: inline-block !important; 
+    width: 30% !important; */
+/* } */
+
+ul.navorg {
+    height: 10px;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: darkslategray !important;
+
+}
+
+li.navorg {
+    float: left;
+}
+
+li.navorg a {
+    display: block;
+    padding: 8px;
+    background-color: darkslategray !important;
+}
