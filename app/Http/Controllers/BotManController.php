@@ -25,12 +25,14 @@ class BotManController extends Controller
      * Place your BotMan logic here.
      */
     public function handle()
+
     {
 
 
         $botman = app('botman');
 
         $botman->hears('{message}', function ($botman, $message) {
+            $this->iraEressan();
 
             if (preg_match("/recibo/i", $message)) {
 
@@ -46,6 +48,11 @@ class BotManController extends Controller
         $botman->listen();
     }
 
+            // ACCIONES MAS FRECUENTES
+
+            public function iraEressan(){
+                $$this->reply(' <a href="../eressan" target="_top"><h1>pulsa para ir a Recaudacion Voluntaria de Liquidaciones</h1></a>');   
+            }
 
     public function askPagarRecibos($botman)
 
@@ -61,7 +68,7 @@ class BotManController extends Controller
             }
         });
     }
-
+/* 
     public function askWhatToDo()
     {
         //Se programa una pregunta donde se establacen dos respuestas por defecto y un fallback por si no es ninguna de las dos
@@ -77,7 +84,7 @@ class BotManController extends Controller
                 $this->say('Opcion, ' . $value . ' ' . $text);
             }
         });
-    }
+    } */
 
 
 
