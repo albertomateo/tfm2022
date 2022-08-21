@@ -2,10 +2,10 @@
 @section('content')
 <h1>DIPUTACION</h1>
 <ul class="navorg">
-  <li  class="navorg">><a href="#home">Hoffme</a></li>
-  <li  class="navorg">><a href="#news">News</a></li>
-  <li  class="navorg">><a href="#contact">Contact</a></li>
-  <li  class="navorg">><a href="#about">About</a></li>
+  <li  class="navorg">><a href="#">Inicio</a></li>
+  <li  class="navorg">><a href="#">Pago de Recibos</a></li>
+  <li  class="navorg">><a href="#">Embargos</a></li>
+  <li  class="navorg">><a href="#">Registro</a></li>
 </ul>
 <topicdiputacion-component></topicdiputacion-component>
 

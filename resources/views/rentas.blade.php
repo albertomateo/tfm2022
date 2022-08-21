@@ -16,7 +16,7 @@
 
 <p><b>Note:</b> Para poder ser asistido correctamente debe ....</p>
 <p>Para realizar cualquier tramite debe acceder a la sede electronica del ayuntamiento ....</p>
-<p><b>Note:</b> overflow:hidden is added to the ul element to prevent li elements from going outside of the list.</p>
+
 
 <topicrentas-component></topicrentas-component>
 

@@ -83,8 +83,8 @@ Route::apiResource('/topics', TopicController::class)->only(['index']);
 Route::apiResource('/topics', TopicController::class)->except(['index'])->middleware('auth');
 
 //Route::Resource('/enlaces',EnlaceController::class);  7 rutas funciona
-Route::apiResource('/enlaces', App\Http\Controllers\EnlaceController::class)->only(['index']);
-Route::apiResource('/enlaces', App\Http\Controllers\EnlaceController::class)->except(['index'])->middleware('auth');
+Route::Resource('/enlaces', App\Http\Controllers\EnlaceController::class)->only(['index','show']);
+Route::Resource('/enlaces', App\Http\Controllers\EnlaceController::class)->except(['index','show'])->middleware('auth');
 
 
 Route::prefix('informaciones')->group(
