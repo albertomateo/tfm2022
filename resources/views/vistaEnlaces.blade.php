@@ -2,27 +2,27 @@
 
 @section('content')
 <div class="container">
-    <p></p>
+<p>.</p>
+
+    <!-- pasamos en usuario autentificado desde la vista blade de laravel 
+    hasta el componente vue a traves de las props: -->
+
+    <!-- Aunque innecesaria, mantenemos la doble entrada con directivas auth porque 
+    es una indicacion mas de si estamos o no autentificado -->
 
     @auth
-    <p>. </p>
-    <p> </p>
-
-
     <enlace-component :user_id="{{json_encode(Auth::check())}}">
-        </enlace-component>
-        // The user is authenticated...
-        @endauth
+    </enlace-component>
+    // The user is authenticated...
+    @endauth
 
-        @guest
 
-        <p>. </p>
-        <p> </p>
 
-        <enlace-component :user_id="{{json_encode(Auth::check())}}">
-            </enlace-component>
-            // The user is not authenticated...
-            @endguest
+    @guest
+    <enlace-component :user_id="{{json_encode(Auth::check())}}">
+    </enlace-component>
+    // The user is not authenticated...
+    @endguest
 
 
 </div>

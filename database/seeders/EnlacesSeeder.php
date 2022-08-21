@@ -15,6 +15,30 @@ class EnlacesSeeder extends Seeder
      */
     public function run()
     {
+        DB::table('enlaces')->insert([
+            'titulo' => "Pagina WEB de Catastro",
+            'sitioweb' => "https://www.catastro.minhap.es/"
+        ]);
+
+        DB::table('enlaces')->insert([
+            'titulo' => "Dipucación de Cadiz",
+            'sitioweb' => "https://dipucadiz.es/"
+        ]);
+
+        DB::table('enlaces')->insert([
+            'titulo' => "Ayuntamiento de Sanlucar de Barrameda",
+            'sitioweb' => "https://www.sanlucardebarrameda.es/"
+        ]);
+
+        DB::table('enlaces')->insert([
+            'titulo' => "cita previa Ayuntamiento Sanlucar",
+            'sitioweb' => "https://citaprevia.sanlucardebarrameda.es/index.php"
+        ]);
+
+        DB::table('enlaces')->insert([
+            'titulo' => "Patronato de turismo Sanlucar de Bda.",
+            'sitioweb' => "https://www.sanlucarturismo.com/"
+        ]);
         for ($i = 0; $i < 5; $i++) {
             DB::table('enlaces')->insert([
                 'titulo' => Str::random(10),

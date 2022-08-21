@@ -39,13 +39,6 @@
     <td>
         <a href="#" class="btn" onclick="botmanChatWidget.open();return false;">ABRIR CHAT DE AYUDA</a>
     </td>
-    <!-- <script type="application/javascript">
-        function abreelchat() {
-            botmanChatWidget.open();
-        }
-        abreelchat();
-    </script> -->
-
 
 
 </div>

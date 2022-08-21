@@ -6059,8 +6059,32 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -6205,31 +6229,33 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   computed: {},
   props: [],
   data: function data() {
-    var _ref;
-
-    return _ref = {
+    return {
       // Campos en modo normal
-      titulo: "",
+      titulo_para_insertar_con_vmodel: "",
       // Input titulo con v-model
-      sitioweb: "",
+      sitioweb_para_insertar_con_vmodel: "",
       // Input sitioweb con v-model
       // Campos que se muestran en modo edicion
-      tituloActualizar: "",
-      // Input tituloActualizar con v-model
-      // Input tituloActualizar dentro del formulario de editar con v-model
-      sitiowebActualizar: "",
-      // Input sitioweb dentro del formulario de editar
-      // Ver o no ver el formulario de editar
-      formActualizar: false,
-      // La posición de tu lista donde te gustaría editar
-      idActualizar: 0
-    }, _defineProperty(_ref, "tituloActualizar", ""), _defineProperty(_ref, "modoEdicion", ""), _defineProperty(_ref, "enlaces", []), _defineProperty(_ref, "enlace", {
-      id: 0,
-      titulo: " ",
-      sitioweb: " "
-    }), _ref;
+      titulo_para_editar_con_vmodel: "",
+      // Valor del Input titulo_para_editar con v-model
+      sitioweb_para_editar_con_vmodel: "",
+      // Valor del Input sitioweb_para_editar_con_vmodel con v-model
+      modo_editar: false,
+      // Ver o no ver los campos de edicion (y botones) en el listado
+      registro_en_edicion: 0,
+      // // La posición del listado donde mostramos los input de ediion (y botones)
+      // Lista de enlaces
+      enlaces: [],
+      // enlace independiente que se esta editando o insertando
+      enlace: {
+        id: 0,
+        titulo: " ",
+        sitioweb: " "
+      }
+    };
   },
   methods: {
+    // ----------------- Metodos para el backend -----------------------------------
     borrarenbackend: function borrarenbackend(enlace_id) {
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
         var respuesta;
@@ -6260,19 +6286,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                alert(enlace_id); // this.enlaces[enlace_id].titulo = this.tituloActualizar;
-                // this.enlaces[enlace_id].sitioweb = this.modoEdicion;
-
                 _this.enlace.id = enlace_id;
                 _this.enlace.titulo = _this.enlaces[enlace_id].titulo;
                 _this.enlace.sitioweb = _this.enlaces[enlace_id].sitioweb;
-                _context2.next = 6;
+                _context2.next = 5;
                 return axios.post("/enlaces", _this.enlace);
 
-              case 6:
+              case 5:
                 respuesta = _context2.sent;
 
-              case 7:
+              case 6:
               case "end":
                 return _context2.stop();
             }
@@ -6289,24 +6312,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                alert(enlace_id); // this.enlaces[enlace_id].titulo = this.tituloActualizar;
-                // this.enlaces[enlace_id].sitioweb = this.modoEdicion;
-
                 _this2.enlace.id = enlace_id;
                 _this2.enlace.titulo = _this2.enlaces[enlace_id].titulo;
                 _this2.enlace.sitioweb = _this2.enlaces[enlace_id].sitioweb;
                 _this2.enlace.id = enlace_id + 1;
-                _context3.next = 7;
+                _context3.next = 6;
                 return axios.put("/enlaces/" + enlace_id, _this2.enlace).then(function (response) {
                   console.log(response); // this.$toast.show('guardado con exito');
                 })["catch"](function (error) {
                   console.log("Error al guardar");
                 });
 
-              case 7:
+              case 6:
                 respuesta = _context3.sent;
 
-              case 8:
+              case 7:
               case "end":
                 return _context3.stop();
             }
@@ -6339,35 +6359,52 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }, _callee4);
       }))();
     },
-    crearEnlace: function crearEnlace() {
-      // Añadimos a nuestra lista
+    //----------------------- Metodos para el Frontend --------------------------------------
+    // ------ utiliza metodo javacript para listas o arrays ---------------
+    insertarEnFrontend: function insertarEnFrontend() {
+      // insertamos en la lista Front con push
+      //  (javascript) array.push("elemento")  Añade el elemento al final de una lista
       this.enlaces.push({
-        titulo: this.titulo,
-        sitioweb: this.sitioweb
-      }); // Vaciamos el formulario de añadir
+        titulo: this.titulo_para_insertar_con_vmodel,
+        sitioweb: this.sitioweb_para_insertar_con_vmodel
+      }); // Utilizamos en enlace bidireccional de v-model para poner en blanco los inputs de insercion
 
-      this.titulo = "";
-      this.sitioweb = "";
+      this.titulo_para_insertar_con_vmodel = "";
+      this.sitioweb_para_insertar_con_vmodel = "";
+      menu_insercion.className = "d-none";
     },
-    verFormActualizar: function verFormActualizar(enlace_id) {
-      // Antes de mostrar el formulario de editar, rellenamos sus campos
-      this.idActualizar = enlace_id;
-      this.tituloActualizar = this.enlaces[enlace_id].titulo;
-      this.modoEdicion = this.enlaces[enlace_id].sitioweb; // Mostramos el formulario
+    cambiarAModoEditarenFrontend: function cambiarAModoEditarenFrontend(enlace_id) {
+      // Relleno los inputs con los valores a editar usando la bidireccionalidad de v-model
+      this.registro_en_edicion = enlace_id;
+      this.titulo_para_editar_con_vmodel = this.enlaces[enlace_id].titulo;
+      this.sitioweb_para_editar_con_vmodel = this.enlaces[enlace_id].sitioweb; // Cambio a modo edicion para mostrar los inputs
 
-      this.formActualizar = true;
+      this.modo_editar = true;
     },
-    borrarEnlace: function borrarEnlace(enlace_id) {
-      // Eliminamos el elemento de la lista
+    guardarRegistroEditadoEnFrontend: function guardarRegistroEditadoEnFrontend(enlace_id) {
+      // Ocultamos elementos span de nuestro formulario de editar
+      this.modo_editar = false; // Actualizamos el array de datos en frontend.
+      // vue detecta cambios y refresca automaticamente la vista. No es necesario ejecutar ningun metodo para refrescar
+
+      this.enlaces[enlace_id].titulo = this.titulo_para_editar_con_vmodel;
+      this.enlaces[enlace_id].sitioweb = this.sitioweb_para_editar_con_vmodel;
+    },
+    borrarRegistroEnFrontend: function borrarRegistroEnFrontend(enlace_id) {
+      // Usamos el metodo splice para borrar elemento de una lista. busca la posicion enlace_id y borra un elemento
+      // (javascript) array.splice(start[, deleteCount[, item1[, item2[, ...]]]])
       this.enlaces.splice(enlace_id, 1);
     },
-    guardarActualizacion: function guardarActualizacion(enlace_id) {
-      // Ocultamos elementos span de nuestro formulario de editar
-      this.formActualizar = false; // Actualizamos los datos
-
-      this.enlaces[enlace_id].titulo = this.tituloActualizar;
-      this.enlaces[enlace_id].sitioweb = this.modoEdicion;
+    //----------------------- Metodos para la interfaz --------------------------------------
+    cancelarEdicionEnFrontend: function cancelarEdicionEnFrontend() {
+      // ------¿?-------
+      this.modo_editar = false;
+    },
+    mostrarMenuInsercion: function mostrarMenuInsercion() {
+      menu_insercion.className = "d-block";
     }
+  },
+  created: function created() {
+    this.cargardebackend();
   }
 });
 
@@ -41655,69 +41692,92 @@ var render = function () {
     _c(
       "button",
       {
-        staticClass: "btn btn-danger",
+        staticClass: "btn btn-success",
         on: {
           click: function ($event) {
             return _vm.cargardebackend()
           },
         },
       },
-      [_vm._v("\n        Cargar datos de la base de datos\n    ")]
+      [_vm._v("\n        Cargar manualmente datos de la base de datos\n    ")]
     ),
     _vm._v(" "),
-    _c("section", { staticClass: "form" }, [
-      _c("form", { staticClass: "text-center", attrs: { action: "" } }, [
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.titulo,
-              expression: "titulo",
-            },
-          ],
-          staticClass: "form-control",
-          attrs: { type: "text", placeholder: "Titulo" },
-          domProps: { value: _vm.titulo },
-          on: {
-            input: function ($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.titulo = $event.target.value
-            },
+    _c(
+      "button",
+      {
+        staticClass: "btn btn-info",
+        on: {
+          click: function ($event) {
+            return _vm.mostrarMenuInsercion()
           },
-        }),
-        _vm._v(" "),
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.sitioweb,
-              expression: "sitioweb",
+        },
+      },
+      [_vm._v("\n        Mostrar Menu de Inserción\n    ")]
+    ),
+    _vm._v(" "),
+    _c(
+      "section",
+      { staticClass: "form d-none", attrs: { id: "menu_insercion" } },
+      [
+        _c("form", { staticClass: "text-center", attrs: { action: "" } }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.titulo_para_insertar_con_vmodel,
+                expression: "titulo_para_insertar_con_vmodel",
+              },
+            ],
+            staticClass: "form-control",
+            attrs: {
+              type: "text",
+              placeholder: "Introduzca el Titulo a Crear",
             },
-          ],
-          staticClass: "form-control",
-          attrs: { type: "text", name: "sitioweb", placeholder: "Sitio Web" },
-          domProps: { value: _vm.sitioweb },
-          on: {
-            input: function ($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.sitioweb = $event.target.value
+            domProps: { value: _vm.titulo_para_insertar_con_vmodel },
+            on: {
+              input: function ($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.titulo_para_insertar_con_vmodel = $event.target.value
+              },
             },
-          },
-        }),
-        _vm._v(" "),
-        _c("input", {
-          staticClass: "btn btn-success",
-          attrs: { type: "button", value: "Crear Registro" },
-          on: { click: _vm.crearEnlace },
-        }),
-      ]),
-    ]),
+          }),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.sitioweb_para_insertar_con_vmodel,
+                expression: "sitioweb_para_insertar_con_vmodel",
+              },
+            ],
+            staticClass: "form-control",
+            attrs: {
+              type: "text",
+              placeholder: "Introduzca el Sitio Web a Crear",
+            },
+            domProps: { value: _vm.sitioweb_para_insertar_con_vmodel },
+            on: {
+              input: function ($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.sitioweb_para_insertar_con_vmodel = $event.target.value
+              },
+            },
+          }),
+          _vm._v(" "),
+          _c("input", {
+            staticClass: "btn btn-success",
+            attrs: { type: "button", value: "Crear Registro" },
+            on: { click: _vm.insertarEnFrontend },
+          }),
+        ]),
+      ]
+    ),
     _vm._v(" "),
     _c("section", { staticClass: "data" }, [
       _c("caption", [_vm._v("\n            Enlaces\n        ")]),
@@ -41732,26 +41792,27 @@ var render = function () {
               _c("td", [_vm._v(_vm._s(enlace.id))]),
               _vm._v(" "),
               _c("td", [
-                _vm.formActualizar && _vm.idActualizar == index
+                _vm.modo_editar && _vm.registro_en_edicion == index
                   ? _c("span", [
                       _c("input", {
                         directives: [
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.tituloActualizar,
-                            expression: "tituloActualizar",
+                            value: _vm.titulo_para_editar_con_vmodel,
+                            expression: "titulo_para_editar_con_vmodel",
                           },
                         ],
                         staticClass: "form-control",
                         attrs: { type: "text" },
-                        domProps: { value: _vm.tituloActualizar },
+                        domProps: { value: _vm.titulo_para_editar_con_vmodel },
                         on: {
                           input: function ($event) {
                             if ($event.target.composing) {
                               return
                             }
-                            _vm.tituloActualizar = $event.target.value
+                            _vm.titulo_para_editar_con_vmodel =
+                              $event.target.value
                           },
                         },
                       }),
@@ -41766,26 +41827,29 @@ var render = function () {
               ]),
               _vm._v(" "),
               _c("td", [
-                _vm.formActualizar && _vm.idActualizar == index
+                _vm.modo_editar && _vm.registro_en_edicion == index
                   ? _c("span", [
                       _c("input", {
                         directives: [
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.sitiowebActualizar,
-                            expression: "sitiowebActualizar",
+                            value: _vm.sitioweb_para_editar_con_vmodel,
+                            expression: "sitioweb_para_editar_con_vmodel",
                           },
                         ],
                         staticClass: "form-control",
                         attrs: { type: "text" },
-                        domProps: { value: _vm.sitiowebActualizar },
+                        domProps: {
+                          value: _vm.sitioweb_para_editar_con_vmodel,
+                        },
                         on: {
                           input: function ($event) {
                             if ($event.target.composing) {
                               return
                             }
-                            _vm.sitiowebActualizar = $event.target.value
+                            _vm.sitioweb_para_editar_con_vmodel =
+                              $event.target.value
                           },
                         },
                       }),
@@ -41800,7 +41864,7 @@ var render = function () {
               ]),
               _vm._v(" "),
               _c("td", [
-                _vm.formActualizar && _vm.idActualizar == index
+                _vm.modo_editar && _vm.registro_en_edicion == index
                   ? _c("span", [
                       _c(
                         "button",
@@ -41808,13 +41872,30 @@ var render = function () {
                           staticClass: "btn btn-success",
                           on: {
                             click: function ($event) {
-                              return _vm.guardarActualizacion(index)
+                              return _vm.guardarRegistroEditadoEnFrontend(index)
                             },
                           },
                         },
                         [
                           _vm._v(
                             "\n                                Guardar\n                            "
+                          ),
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-primary",
+                          on: {
+                            click: function ($event) {
+                              return _vm.cancelarEdicionEnFrontend()
+                            },
+                          },
+                        },
+                        [
+                          _vm._v(
+                            "\n                                Cancelar\n                            "
                           ),
                         ]
                       ),
@@ -41826,7 +41907,7 @@ var render = function () {
                           staticClass: "btn btn-warning",
                           on: {
                             click: function ($event) {
-                              return _vm.verFormActualizar(index)
+                              return _vm.cambiarAModoEditarenFrontend(index)
                             },
                           },
                         },
@@ -41843,7 +41924,7 @@ var render = function () {
                           staticClass: "btn btn-danger",
                           on: {
                             click: function ($event) {
-                              return _vm.borrarEnlace(index)
+                              return _vm.borrarRegistroEnFrontend(index)
                             },
                           },
                         },
