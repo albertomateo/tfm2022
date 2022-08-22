@@ -13,7 +13,7 @@
     @auth
     <enlace-component :user_id="{{json_encode(Auth::check())}}">
     </enlace-component>
-    // The user is authenticated...
+    <p> // user is authenticated...</p>
     @endauth
 
 
@@ -21,7 +21,7 @@
     @guest
     <enlace-component :user_id="{{json_encode(Auth::check())}}">
     </enlace-component>
-    // The user is not authenticated...
+    <p> // user is not authenticated...</p>
     @endguest
 
 

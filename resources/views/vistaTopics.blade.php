@@ -13,14 +13,15 @@
     @auth
     <topic-component :user_id="{{json_encode(Auth::check())}}">
     </topic-component>
-    The user is authenticated...
+    <p> // user is authenticated...</p>
     @endauth
 
 
+    
     @guest
     <topic-component :user_id="{{json_encode(Auth::check())}}">
     </topic-component>
-    The user is not authenticated...
+    <p> // user is not authenticated...</p>
     @endguest
 
 

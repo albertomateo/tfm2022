@@ -13,14 +13,15 @@
     @auth
     <anuncio-component :user_id="{{json_encode(Auth::check())}}">
     </anuncio-component>
-    // The user is authenticated...
+    <p> // user is authenticated...</p>
     @endauth
+
 
 
     @guest
     <anuncio-component :user_id="{{json_encode(Auth::check())}}">
     </anuncio-component>
-    // The user is not authenticated...
+    <p> // user is not authenticated...</p>
     @endguest
 
 

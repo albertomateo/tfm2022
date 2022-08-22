@@ -17,7 +17,11 @@ use App\Http\Controllers\BotManController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+//  --------------------   Vistas de prueba ----------------------------
 
+Route::get('/prueba', function () {
+    return view('prueba');
+});
 Route::get('/ejemplocomponente', function () {
     return view('ejemplocomponente');
 });
@@ -25,12 +29,10 @@ Route::get('/welcome', function () {
     return view('welcome');
 });
 
+//  --------------------   Vistas de la aplicacion ----------------------------
 
 Route::get('/', function () {
     return view('portada');
-});
-Route::get('/prueba', function () {
-    return view('prueba');
 });
 Route::get('/eressan', function () {
     return view('eressan');
@@ -65,49 +67,57 @@ Route::get('/vistaEnlaces', function () {
 
 
 
-// Route::get('topicsrentas', [TopicController::class, 'index']);
 
 
+// ---------------------    APIS    ------------------
 
+//  --------------------   Anuncios ----------------------------
+
+//  Filtrado
 Route::get('/anuncios/filtrar/{miparametro?}', [AnuncioController::class, 'anuncios.filtrar']);
-Route::get('/topics/filtrar/{miparametro?}', [AnuncioController::class, 'topics.filtrar']);
-
-//Route::Resource('/anuncios',AnuncioController::class);  7 rutas funciona
+//  5 rutas
 Route::apiResource('/anuncios', AnuncioController::class)->only(['index']);
 Route::apiResource('/anuncios', AnuncioController::class)->except(['index'])->middleware('auth');
 
-Route::get('/topics/filtrar/{miparametro?}', [TopicController::class, 'filtrar']);
 
-//Route::Resource('/topics',TopicController::class);  7 rutas funciona
+
+
+//  --------------------   topis (Temas) ----------------------------
+
+//  Filtrado
+Route::get('/topics/filtrar/{miparametro?}', [TopicController::class, 'topics.filtrar']);
+// Route::get('/topics/filtrar/{miparametro?}', [TopicController::class, 'filtrar']);
+
+//  5 rutas 
 Route::apiResource('/topics', TopicController::class)->only(['index']);
 Route::apiResource('/topics', TopicController::class)->except(['index'])->middleware('auth');
 
-//Route::Resource('/enlaces',EnlaceController::class);  7 rutas funciona
+
+
+//  --------------------   Enlaces ----------------------------
+//  Filtrado
+Route::get('/enlaces/filtrar/{miparametro?}', [App\Http\Controllers\EnlaceController::class, 'enlaces.filtrar']);
+//  7 rutas funciona
 Route::Resource('/enlaces', App\Http\Controllers\EnlaceController::class)->only(['index','show']);
 Route::Resource('/enlaces', App\Http\Controllers\EnlaceController::class)->except(['index','show'])->middleware('auth');
 
 
+//  --------------------   Informaciones ----------------------------
+//  --- Se crea un CRUD solo en Backend 
 Route::prefix('informaciones')->group(
     function () {
-
-
-        Route::match(['get', 'post'],'/', [App\Http\Controllers\InformacionController::class, 'index'])->name('informaciones.index');
-        Route::get('/create', [App\Http\Controllers\InformacionController::class, 'create'])->name('informaciones.create');
-        Route::get('/{informacion}/edit', [App\Http\Controllers\InformacionController::class, 'edit'])->name('informaciones.edit');
-        Route::post('/store', [App\Http\Controllers\InformacionController::class, 'store'])->name('informaciones.store');
-        Route::post('/{informacion}/update', [App\Http\Controllers\InformacionController::class, 'update'])->name('informaciones.update');
-        Route::delete('/{informacion}/delete', [App\Http\Controllers\InformacionController::class, 'delete'])->name('informaciones.delete');
-        // Route::match(['get', 'post'], '/', 'App\Http\Controllers\InformacionController@index')->name('informacion.index'); //listados
-        // Route::get('/create', 'App\Http\Controllers\InformacionController@create')->name('informacion.create'); //creación
-        // Route::post('/store', 'App\Http\Controllers\InformacionController@store')->name('informacion.store'); //guardado
-        // Route::get('/{informacion}/edit', 'App\Http\Controllers\InformacionController@edit')->name('informacion.edit'); //edicion
-        // Route::post('/{informacion}/update', 'App\Http\Controllers\InformacionController@update')->name('informacion.update'); //edicion
-        // Route::delete('/{informacion}/delete', 'App\Http\Controllers\InformacionController@delete')->name('informacion.delete'); //borrado destroy
-        
+        Route::match(['get', 'post'],'/', [App\Http\Controllers\InformacionController::class, 'index'])->name('informaciones.index'); //listados
+        Route::get('/create', [App\Http\Controllers\InformacionController::class, 'create'])->name('informaciones.create');  //insercion
+        Route::get('/{informacion}/edit', [App\Http\Controllers\InformacionController::class, 'edit'])->name('informaciones.edit'); //edicion
+        Route::post('/store', [App\Http\Controllers\InformacionController::class, 'store'])->name('informaciones.store');  //guardar
+        Route::post('/{informacion}/update', [App\Http\Controllers\InformacionController::class, 'update'])->name('informaciones.update');  //actualizar uno
+        Route::delete('/{informacion}/delete', [App\Http\Controllers\InformacionController::class, 'delete'])->name('informaciones.delete'); //borrar destrtoy uno
     }
 );
+// ---------------------   FIN DE LAS APIS ------------------
 
 
+//  --------------------   BOTMAN ----------------------------
 
 Route::get('/vistabotman', function () {
     return view('vistaBotman');
@@ -116,5 +126,8 @@ Route::get('/vistabotman', function () {
 Route::match(['get', 'post'], '/botman', [BotManController::class, 'handle']);
 
 
+//  --------------------   LO CREA AUTOMATICAMENTE AL HACE php artisan make:auth----------------------------
 
 Auth::routes();
+
+// Con php artisan route:list -c Compruebo que esté todo correcto
