@@ -5,7 +5,7 @@
                 <i><b>edificio antigua comandancia de marina</b></i></font
             >
         </p>
-        <div align="center" class="contenedor" style="border-radius: 20px;"     >
+        <div align="center" class="contenedor" style="border-radius: 20px">
             <img
                 class="contenido"
                 src="/images/cartel_escudo_ayto.gif"
@@ -37,22 +37,31 @@
             GESTIÓN TRIBUTARIA – RECAUDACIÓN VOLUNTARIA Y EJECUTIVA – GESTIÓN
             CATASTRAL
         </P> -->
-<P style="letter-spacing: 3px">
-                        <a href="/rentas" class="btn btn-outline-link btn-sm">GESTIÓN TRIBUTARIA </a> - 
-                        <a href="/eressan" class="btn btn-outline-link btn-sm">RECAUDACIÓN VOLUNTARIA</a> - 
-                        <a href="/diputacion" class="btn btn-outline-link btn-sm">EJECUTIVA</a> - 
-                        <a href="/catastro" class="btn btn-outline-link btn-sm">GESTION CATASTRAL</a>
-                 </P>       
+        <P style="letter-spacing: 3px">
+            <a href="/rentas" class="btn btn-outline-link btn-sm"
+                >GESTIÓN TRIBUTARIA
+            </a>
+            -
+            <a href="/eressan" class="btn btn-outline-link btn-sm"
+                >RECAUDACIÓN VOLUNTARIA</a
+            >
+            -
+            <a href="/diputacion" class="btn btn-outline-link btn-sm"
+                >EJECUTIVA</a
+            >
+            -
+            <a href="/catastro" class="btn btn-outline-link btn-sm"
+                >GESTION CATASTRAL</a
+            >
+        </P>
     </div>
 </template>
 <style scoped>
-div.componente{
-    border: 0px,0px,1px,0px solid #000000;
+div.componente {
+    border: 0px, 0px, 0px, 0px solid #000000;
     margin: 25px;
-  
 }
 img {
-
     padding: 0cm;
     height: 5em;
     margin-left: 30px;

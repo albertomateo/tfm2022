@@ -52,6 +52,9 @@ Route::get('/diputacion', function () {
 Route::get('/comollegar', function () {
     return view('comollegar');
 });
+Route::get('/galeria', function () {
+    return view('galeriafotosedificio');
+});
 
 Route::get('/vistaAnuncios', function () {
     return view('vistaAnuncios');
@@ -74,10 +77,10 @@ Route::get('/vistaEnlaces', function () {
 //  --------------------   Anuncios ----------------------------
 
 //  Filtrado
-Route::get('/anuncios/filtrar/{miparametro?}', [AnuncioController::class, 'anuncios.filtrar']);
+Route::get('/anuncios/filtrar/{miparametro?}', [App\Http\Controllers\AnuncioController::class, 'filtrar']);
 //  5 rutas
-Route::apiResource('/anuncios', AnuncioController::class)->only(['index']);
-Route::apiResource('/anuncios', AnuncioController::class)->except(['index'])->middleware('auth');
+Route::apiResource('/anuncios', App\Http\Controllers\AnuncioController::class)->only(['index']);
+Route::apiResource('/anuncios', App\Http\Controllers\AnuncioController::class)->except(['index'])->middleware('auth');
 
 
 
@@ -85,18 +88,18 @@ Route::apiResource('/anuncios', AnuncioController::class)->except(['index'])->mi
 //  --------------------   topis (Temas) ----------------------------
 
 //  Filtrado
-Route::get('/topics/filtrar/{miparametro?}', [TopicController::class, 'topics.filtrar']);
+Route::get('/topics/filtrar/{miparametro?}', [App\Http\Controllers\TopicController::class, 'filtrar']);
 // Route::get('/topics/filtrar/{miparametro?}', [TopicController::class, 'filtrar']);
 
 //  5 rutas 
-Route::apiResource('/topics', TopicController::class)->only(['index']);
-Route::apiResource('/topics', TopicController::class)->except(['index'])->middleware('auth');
+Route::apiResource('/topics', App\Http\Controllers\TopicController::class)->only(['index']);
+Route::apiResource('/topics', App\Http\Controllers\TopicController::class)->except(['index'])->middleware('auth');
 
 
 
 //  --------------------   Enlaces ----------------------------
 //  Filtrado
-Route::get('/enlaces/filtrar/{miparametro?}', [App\Http\Controllers\EnlaceController::class, 'enlaces.filtrar']);
+Route::get('/enlaces/filtrar/{miparametro?}', [App\Http\Controllers\EnlaceController::class, 'filtrar']);
 //  7 rutas funciona
 Route::Resource('/enlaces', App\Http\Controllers\EnlaceController::class)->only(['index','show']);
 Route::Resource('/enlaces', App\Http\Controllers\EnlaceController::class)->except(['index','show'])->middleware('auth');

@@ -1,73 +1,235 @@
- body {
+/* ======  Estilos generales a todos los dispositivos ==============*/
+body {
     font-family: verdana, arial !important;
-    background-color:slategray
+    background-color: rgba(7, 44, 145, 0.307);
 }
 
+/* Barras de Navegacion*/
+
+/*Barra superior. Por debajo del menu superior*/
 #cabece {
     font-family: verdana, arial !important;
-    background-color: midnightblue !important;
-    color: white !important;
-    padding: 0 !important;
-    border: 0 !important;
+    background-color: midnightblue;
+
+    padding: 0px !important;
+    border: 0px !important;
+    height: auto;
 }
 
+/*Menu de navegacion. Al pasar por encima de los textos*/
 .nav-item a:hover {
-    background-color:royalblue !important;
+    background-color: rgb(71, 31, 12) !important;
 }
 
+/*Menu de navegacion.*/
 .nav-item a {
     color: rgb(255, 255, 255) !important;
-    background-color:midnightblue !important;
+    background-color: midnightblue !important;
     font-weight: bold !important;
-    width:max-content;
+    width: auto;
+    height: 100%;
+    padding-left: 2em;
 }
- 
 
- img {
+/*Tamaño de los escudos*/
+img {
+    height: 100px;
+}
 
-           height: 100px;
-
- }
-
-
-
-
- ul.navorg{
+/*Segunda barra de navegacion horizontal*/
+ul.navorg {
     list-style-type: none;
-    margin: 0;
+    /* margin: 0; */
     padding: 0;
     overflow: hidden;
-    background-color: #333;
+    background: green;
     position: fixed;
-    top: 35;
+    /* top: 6em; */
     width: 100%;
 }
 
-li.navorg{
+/*Posicion de los elementos en la segunda barra de navegacion*/
+li.navorg {
     float: left;
 }
+li.navorg ::after {
+    float: none;
+}
 
+/*Estilo de los elementos en la segunda barra de navegacion*/
 li.navorg a {
     display: block;
     color: white;
     text-align: center;
-    padding: 2px 5px;
+    padding: 1px 5px;
     text-decoration: none;
 }
 
+/*Estilo de los elementos en la segunda barra de navegacion*/
 li.navorg a:hover:not(.active) {
     background-color: #111;
 }
 
-.active {
-    background-color: #4CAF50;
+/* Estilo de los elementos */
+/*Estilos para los elementos que se listan en cada uno de los 4 organismos*/
+
+div #elementos {
+    /* margin: 5%; */
+    /* padding: 1%;  */
+    background-color: rgb(250, 247, 242);
+    border: 5px solid;
+    border-radius: 20px;
+    border-style: outset;
+    border-width: 7px;
+    border-color: silver;
 }
 
+div #matriz {
+    margin: 1%;
+    padding: 1%;
+    background-color: rgb(135, 164, 165);
+    border: 1px solid rgb(29, 145, 70);
+    border-radius: 20px;
+}
 
+div #cuerpo {
+    top: 3%;
+    margin: 1%;
+    padding: 1%;
+    background-color: antiquewhite;
+    border: 1px solid rgb(29, 145, 70);
+    border-radius: 20px;
+}
+/* componente cabecera*/
+div .componente {
+    margin-top: 4em;
+    margin-right: 2em;
+    margin-left: 2em;
+    margin-right: 15px;
+    margin-left: 5px;
+    padding-right: 15px;
 
+    /* width:100%; */
 
+    /* background-color: darkmagenta; */
+}
+/*h3 padding para que no quede muy ajustado a la izquieda*/
+h3,
+h4,
+a,
+p {
+    padding-left: 1em;
+}
 
+/* ==================        fin de estilos generales a todos los dispositivos       =============*/
 
+/*   ===============         Estilos especificos para moviles                =====================*/
 
+@media (max-width: 30em) {
+    div #matriz div {
+        width: 338px; /* da un ancho fijo a los elementos - Se usa con container fluid para que se ajusten saltando*/
+    }
 
+    h3,
+    h4,
+    a,
+    p {
+        padding-left: 0.1em;
+    }
+    /* 30x16=480px*/
+    /* Ajustamos la posicion de la segunda barra*/
+    ul.navorg {
+        top: 2.5em;
+    }
+    /*disminuye el tamaño de los enlaces en los anuncios,temas, topics,enlaces para que no se salga*/
+    table thead {
+        display: none;
+    }
 
+    /*padding y margin mas pequeños que en la vista ordenador*/
+
+    div #matriz {
+        margin: 1%;
+        padding: 1%;
+    }
+    /*Tamaño de los escudos*/
+    img {
+        height: 80px;
+    }
+
+    div #cuerpo {
+        top: 30%;
+    }
+    p a {
+        font-size: 0.6px;
+    }
+
+    main,
+    body {
+        padding: 1em, 1em;
+        top: 50px;
+    }
+
+    table {
+        border-collapse: collapse;
+    }
+
+    table tr,
+    td {
+        display: flex;
+        flex-direction: column;
+        border: 1px solid orange;
+        padding: 0.5em;
+        margin-bottom: 1em;
+
+        background-color: rgb(250, 247, 242);
+        border-radius: 2px;
+        border: silver 1px outset;
+    }
+} /* fin de los estilos a aplicar cuando sea tamaño de mobil */
+
+/* ================     estilos para aplicar cuando es una web       ======================*/
+@media (min-width: 31em) {
+    div #matriz div {
+        margin-right: 10px;
+        width: 500px; /* da un ancho fijo a los elementos - Se usa con container fluid para que se ajusten saltando*/
+    }
+    * {
+        font-size: 1em;
+    }
+    #cabece {
+        font-family: verdana, arial !important;
+        background-color: midnightblue !important;
+        /* esto lo hacemos para que la vista movil se vea bien el icono. sobre azul no se ve bien*/
+    }
+
+    /*Margenes con visualizacion en web*/
+    body {
+        margin-top: 6em;
+    }
+
+    /* .active {
+    background-color: #f51f08;
+} */
+    /* *{
+    background-color: rgb(250, 140, 140);
+} */
+}
+@media (min-width: 50em) {
+    @media (max-width: 85em) {
+        .container{
+            margin-left: 0%;
+        }
+        #cabece {
+            width: 100%;
+        }
+
+        .nav-item {
+            align-items: flex-start;
+            float: left;
+            font-size: 10px;
+            color: brown;
+            background-color: darkkhaki;
+        }
+    }
+}

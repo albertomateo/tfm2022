@@ -1,14 +1,32 @@
 <template>
-    <div  class="container">
-        <button @click="cargardebackend()" class="btn btn-success">
+  <div id="cuerpo" class="container-fluid">
+        <!-- <button @click="cargardebackend()" class="btn btn-success">
             Cargar manualmente datos de la base de datos
-        </button>
-        <button @click="mostrarMenuInsercion()" class="btn btn-info">
+        </button> -->
+        <button
+            id="btn_mostrar_menu"
+            @click="mostrarMenuInsercion()"
+            class="btn btn-info"
+        >
             Mostrar Menu de Inserción
         </button>
+        <button
+            id="btn_ocultar_menu"
+            @click="ocultarMenuInsercion()"
+            class="btn btn-info d-none"
+        >
+            Ocultar Menu de Inserción
+        </button>
+
+        <input
+            v-model="texto_a_buscar_con_vmodel"
+            placeholder="Introduce texto a buscar y pulsa intro"
+            type="text"
+            @keyup.enter="filtrarEnBackend()"
+        />
 
         <!-- Formulario en cabecera para insertar registros -->
-        <section id="menu_insercion" class="form  d-none">
+        <section id="menu_insercion" class="form d-none">
             <form action="" class="text-center">
                 <!--Aqui uso v-model Creacion Campo 1-->
                 <input
@@ -26,20 +44,20 @@
                 />
                 <!-- Botón para añadir -->
                 <input
-                    @click="insertarEnFrontend"
+                    @click="insertarDirectamenteEnBackend"
                     type="button"
-                    value="Crear Registro"
+                    value="Crear Registro - Nuevo"
                     class="btn btn-success"
                 />
             </form>
         </section>
 
         <!-- Tabla para mostrar todos los registros (En modo editar muestra dos inputs)-->
-        <section class="data" >
+        <section class="data">
             <caption>
                 Enlaces
             </caption>
-            <table class="table">
+            <table class="table table-hover table table-bordered">
                 <thead>
                     <tr>
                         <th scope="col">id</th>
@@ -86,7 +104,13 @@
                             </span>
                             <span v-else>
                                 <!-- Dato sitioweb -->
-                                {{ enlace.sitioweb }}
+                                <a
+                                    target="_blank"
+                                    v-bind:href="enlace.sitioweb"
+                                >
+                                    {{ enlace.sitioweb }}</a
+                                >
+                                <!-- {{ enlace.sitioweb }}   si es solo mostrar el dato sin enlace -->
                             </span>
                         </td>
                         <td>
@@ -99,7 +123,9 @@
                                 <!-- Botón para guardar registro editado -->
                                 <button
                                     @click="
-                                        guardarRegistroEditadoEnFrontend(index)
+                                        guardarDirectamenteEnBackloeditado(
+                                            enlace.id
+                                        )
                                     "
                                     class="btn btn-success"
                                 >
@@ -124,38 +150,16 @@
                                     Editar
                                 </button>
                                 <!-- Botón para borrar -->
+
                                 <button
-                                    @click="borrarRegistroEnFrontend(index)"
+                                    @click="
+                                        borrarDirectamenteEnBackend(enlace.id)
+                                    "
                                     class="btn btn-danger"
                                 >
                                     Borrar
                                 </button>
                             </span>
-                        </td>
-                        <!-- Botones para backend -->
-                        <td>
-                            <button
-                                @click="guardarenbackend(index)"
-                                class="btn btn-danger"
-                            >
-                                Actualizar en base de datos
-                            </button>
-                        </td>
-                        <td>
-                            <button
-                                @click="insertarenbackend(index)"
-                                class="btn btn-danger"
-                            >
-                                Insertar en base de datos
-                            </button>
-                        </td>
-                        <td>
-                            <button
-                                @click="borrarenbackend(index)"
-                                class="btn btn-danger"
-                            >
-                                borrar en base de datos
-                            </button>
                         </td>
                     </tr>
                 </tbody>
@@ -166,13 +170,27 @@
 
 <script>
 export default {
-    computed: {},
+    computed: {
+        // enlaces() {
+        //     return enlaces.filter((enlace) => {
+        //         return enlace.titulo
+        //             .toLowerCase()
+        //             .includes(this.buscar_con_vmodel.toLowerCase());
+        //     });
+        // },
+        // items() {
+        //   return datos.filter(item => {
+        //     return item.nombre.toLowerCase().includes(this.buscar_con_vmodel.toLowerCase());
+        //   });
+        // },
+    },
 
     props: [],
 
     data() {
         return {
-            // Campos en modo normal
+            buscar_con_vmodel: "", //para buscar en front
+            // Campos en modo normal.
             titulo_para_insertar_con_vmodel: "", // Input titulo con v-model
             sitioweb_para_insertar_con_vmodel: "", // Input sitioweb con v-model
 
@@ -180,6 +198,8 @@ export default {
             titulo_para_editar_con_vmodel: "", // Valor del Input titulo_para_editar con v-model
 
             sitioweb_para_editar_con_vmodel: "", // Valor del Input sitioweb_para_editar_con_vmodel con v-model
+
+            texto_a_buscar_con_vmodel:"" , // Valor del texto a buscar . No es necesario inicializarlo
 
             modo_editar: false, // Ver o no ver los campos de edicion (y botones) en el listado
 
@@ -196,25 +216,35 @@ export default {
         };
     },
     methods: {
-        // ----------------- Metodos para el backend -----------------------------------
-        async borrarenbackend(enlace_id) {
-            const respuesta = await axios.delete("/enlaces/" + enlace_id); //borra el registro que tenga la id
+        //------------------- Metodos para Trabajar directamente en Backend sin pasar por Front --------------------
+        async listartodos() {
+            const respuesta = await axios.get("enlaces"); //recupera todos los anuncios
+            this.enlaces = respuesta.data;
         },
 
-        async insertarenbackend(enlace_id) {
-            this.enlace.id = enlace_id;
-            this.enlace.titulo = this.enlaces[enlace_id].titulo;
-            this.enlace.sitioweb = this.enlaces[enlace_id].sitioweb;
-            const respuesta = await axios.post("/enlaces", this.enlace); //Inserta un registro nuevo
+        async filtrarEnBackend() {
+            const respuesta = await axios.get(
+                "/enlaces/filtrar/" + this.texto_a_buscar_con_vmodel
+            );
+            this.enlaces = respuesta.data;
         },
-
-        async guardarenbackend(enlace_id) {
-            this.enlace.id = enlace_id;
-            this.enlace.titulo = this.enlaces[enlace_id].titulo;
-            this.enlace.sitioweb = this.enlaces[enlace_id].sitioweb;
-            this.enlace.id = enlace_id + 1;
+        async insertarDirectamenteEnBackend() {
+            this.enlace.titulo = this.titulo_para_insertar_con_vmodel;
+            this.enlace.sitioweb = this.sitioweb_para_insertar_con_vmodel;
             const respuesta = await axios
-                .put("/enlaces/" + enlace_id, this.enlace)
+                .post("/enlaces", this.enlace) //Inserta un registro nuevo
+                .then((response) => {
+                    console.log(response);
+                    // this.$toast.show('guardado con exito');
+                })
+                .catch((error) => {
+                    console.log("Error al guardar: " + error.response);
+                });
+            this.listartodos();
+        },
+        async borrarDirectamenteEnBackend(id) {
+            const respuesta = await axios
+                .delete("/enlaces/" + id) //borra el registro que tenga la id
                 .then((response) => {
                     console.log(response);
                     // this.$toast.show('guardado con exito');
@@ -222,7 +252,27 @@ export default {
                 .catch((error) => {
                     console.log("Error al guardar");
                 });
+            this.listartodos();
         },
+
+        async guardarDirectamenteEnBackloeditado(id) {
+            this.enlace.id = id;
+            this.enlace.titulo = this.titulo_para_editar_con_vmodel;
+            this.enlace.sitioweb = this.sitioweb_para_editar_con_vmodel;
+            //console.log(this.enlace);
+            const respuesta = await axios
+                .put("/enlaces/" + id, this.enlace)
+                .then((response) => {
+                    console.log(response);
+                    // this.$toast.show('guardado con exito');
+                })
+                .catch((error) => {
+                    console.log("Error al guardar");
+                });
+            this.cancelarEdicionEnFrontend();
+            this.listartodos();
+        },
+
         //
         async cargardebackend() {
             //recupera todos los enlaces
@@ -233,18 +283,6 @@ export default {
         //----------------------- Metodos para el Frontend --------------------------------------
         // ------ utiliza metodo javacript para listas o arrays ---------------
 
-        insertarEnFrontend: function () {
-            // insertamos en la lista Front con push
-            //  (javascript) array.push("elemento")  Añade el elemento al final de una lista
-            this.enlaces.push({
-                titulo: this.titulo_para_insertar_con_vmodel,
-                sitioweb: this.sitioweb_para_insertar_con_vmodel,
-            });
-            // Utilizamos en enlace bidireccional de v-model para poner en blanco los inputs de insercion
-            this.titulo_para_insertar_con_vmodel = "";
-            this.sitioweb_para_insertar_con_vmodel = "";
-             menu_insercion.className = "d-none";
-        },
         cambiarAModoEditarenFrontend: function (enlace_id) {
             // Relleno los inputs con los valores a editar usando la bidireccionalidad de v-model
             this.registro_en_edicion = enlace_id;
@@ -255,29 +293,23 @@ export default {
             // Cambio a modo edicion para mostrar los inputs
             this.modo_editar = true;
         },
-        guardarRegistroEditadoEnFrontend: function (enlace_id) {
-            // Ocultamos elementos span de nuestro formulario de editar
-            this.modo_editar = false;
-            // Actualizamos el array de datos en frontend.
-            // vue detecta cambios y refresca automaticamente la vista. No es necesario ejecutar ningun metodo para refrescar
-            this.enlaces[enlace_id].titulo = this.titulo_para_editar_con_vmodel;
-            this.enlaces[enlace_id].sitioweb =
-                this.sitioweb_para_editar_con_vmodel;
-        },
-        borrarRegistroEnFrontend: function (enlace_id) {
-            // Usamos el metodo splice para borrar elemento de una lista. busca la posicion enlace_id y borra un elemento
-            // (javascript) array.splice(start[, deleteCount[, item1[, item2[, ...]]]])
-            this.enlaces.splice(enlace_id, 1);
-        },
 
         //----------------------- Metodos para la interfaz --------------------------------------
         cancelarEdicionEnFrontend: function () {
-            // ------¿?-------
             this.modo_editar = false;
         },
 
         mostrarMenuInsercion: function () {
+            // removeClass
+            // addClass
+            btn_ocultar_menu.className = "d-block";
+            btn_mostrar_menu.className = "d-none";
             menu_insercion.className = "d-block";
+        },
+        ocultarMenuInsercion: function () {
+            menu_insercion.className = "d-none";
+            btn_ocultar_menu.className = "d-none";
+            btn_mostrar_menu.className = "d-block";
         },
     },
     created() {
@@ -286,4 +318,79 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+@media (max-width: 30em) {
+    /* 30x16=480px*/
+
+    a {
+        font-size: 0.8em;
+    }
+
+    main {
+        padding: 1 em, 2 em;
+    }
+    body {
+        background: rgba(6, 6, 45, 0.766);
+    }
+    table tr {
+        display: flex;
+        flex-direction: column;
+        border: 0px solid orange; 
+        padding: 1em;
+        margin-bottom: 1em;
+    }
+    table {
+        border-collapse: collapse;
+    }
+
+    tr,
+    td {
+        padding: 1px 1 px;
+    }
+} /* fin de los estilos a aplicar cuando sea tamaño de mobil */
+/* 
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 1%;
+    padding: 2%;
+    background-color: rgb(250, 247, 242);
+
+    border-radius: 20px;
+} */
+div {
+    background-color: rgb(250, 247, 242);
+}
+div li {
+    margin-left: 3%;
+}
+
+h3 {
+    background-color: darkblue;
+    color: white;
+    padding: 0;
+    border: 0;
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+}
+h3 a:visited {
+    color: white;
+}
+a:hover {
+    text-decoration: underline;
+}
+
+h4 {
+    background-color: antiquewhite;
+}
+p {
+    border: 1px solid;
+    border-color: cornflowerblue;
+}
+div {
+    border-top: 250px;
+}
+</style>

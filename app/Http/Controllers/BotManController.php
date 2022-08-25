@@ -37,7 +37,7 @@ class BotManController extends Controller
         $botman->hears('{message}', function ($botman, $message) {
             // $this->iraEressan($botman);
             
-            $this->startConversation($botman);
+            $this->startConversation($botman);    // he intentado sin exito que entre directamente en la conversacion
             
 
 /*             if (preg_match("/recibo/i", $message)) {

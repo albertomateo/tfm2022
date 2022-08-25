@@ -47,7 +47,7 @@
 
 
 
-/* ul.navorg {
+ul.navorg {
     height: 10px;
     list-style-type: none;
     margin: 0;
@@ -65,4 +65,4 @@ li.navorg a {
     display: block;
     padding: 8px;
     background-color: darkslategray !important;
-} */
+}

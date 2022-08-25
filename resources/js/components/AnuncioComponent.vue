@@ -1,17 +1,14 @@
 <template>
-    <div>
+<div id="cuerpo" class="container-fluid">
         <h3 class="text-center"><a href="/vistaAnuncios">Anuncios</a></h3>
 
         <button class="btn btn-warning" @click="filtrarportexto()">
             filtrar por titulo o descripcion
         </button>
 
-        <input type="text" id="textobuscado" size="28" @keyup.enter="filtrarportexto()"/>
-        <span class="float-right"
-            ><button
-                class="btn btn-primary float-right"
-                @click="mostrarDivAgregar()"
-            >
+        <input type="text" id="textobuscado" @keyup.enter="filtrarportexto()" />
+        <span v-if="user_id" class="float-right"
+            ><button class="btn btn-primary" @click="mostrarDivAgregar()">
                 Agregar nuevo Anuncio
             </button>
 
@@ -114,9 +111,9 @@
                     <th v-if="user_id" scope="col" colspan="2">Operacion</th>
                 </tr>
 
-                <tr v-else>
+                <!-- <tr v-else>
                     <th scope="col">Anuncio</th>
-                </tr>
+                </tr> -->
             </thead>
 
             <!-- _____________________________________  -->
@@ -176,7 +173,7 @@
                     <p>{{ anuncio.descripcion }}</p>
                     <p>
                         <a target="_blank" v-bind:href="anuncio.enlace">
-                            ir a: {{ anuncio.enlace }}</a
+                            {{ anuncio.enlace }}</a
                         >
                     </p>
 
@@ -337,7 +334,7 @@ export default {
         async filtrarportexto() {
             var inputtextobuscado =
                 document.getElementById("textobuscado").value;
-            
+
             const respuesta = await axios.get(
                 "/anuncios/filtrar/" + inputtextobuscado
             );
@@ -378,7 +375,63 @@ export default {
 };
 </script>
 <style scoped>
+@media (max-width: 30em) {
+    p a {
+        font-size: 0.75em;
+    }
+}
+
+div li {
+    margin-left: 3%;
+}
+
+h3 {
+    background-color: darkblue;
+    color: white;
+    padding: 0;
+    border: 0;
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+}
+h3 a:visited {
+    color: white;
+}
+a:hover {
+    text-decoration: underline;
+}
+
+h4 {
+    background-color: antiquewhite;
+}
+/* p {
+ border: 1px solid;
+    border-color: cornflowerblue;
+} */
+
+table tr {
+    /*una fila por anuncio*/
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgb(176, 132, 57);
+    padding: 1em;
+    margin-bottom: 1em;
+    background-color: rgb(255, 255, 255);
+    border-radius: 20px;
+
+    /* width: 95%; */
+}
 div {
+    background-color: rgb(132, 177, 223);
+    border: 1px solid rgb(14, 14, 14);
+    border-radius: 20px;
+    border-top: 250px;
+    padding: 2%;
+}
+
+/* div {
     margin: 1%;
     padding: 2%;
     background-color: rgb(250, 247, 242);
@@ -416,5 +469,5 @@ p {
 }
 div {
     border-top: 250px;
-}
+} */
 </style>

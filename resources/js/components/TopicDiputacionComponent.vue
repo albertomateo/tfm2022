@@ -1,6 +1,8 @@
 <template>
-    <div>
-        <h3 class="text-center"><a href="/vistaTopics">Temas de Diputación</a></h3>
+    <div id="cuerpo">
+        <h3 class="text-center">
+            <a href="/vistaTopics">Temas de Diputación</a>
+        </h3>
 
         <button class="btn btn-warning" @click="filtrarportexto()">
             filtrar
@@ -100,7 +102,7 @@
             <table class="table table-hover table table-bordered"> -->
 
             <!-- campos en modo edicion - Usuario Registrado -->
-            <p></p>
+
             <tbody v-if="user_id">
                 <tr v-for="topic in topics" :key="topic.id">
                     <th scope="row">{{ topic.id }}</th>
@@ -157,14 +159,14 @@
 
                 <!-- ======================================================= -->
 
-                <div class="row">
+                <div id="matriz" class="row">
                     <div
                         v-for="topic in topics"
                         :key="topic.id"
-                        class="card col-md-8 themed-grid-col"
-                        style="width: 28rem"
+                        class="card col-md-2 themed-grid-col"
+                        
                     >
-                        <div class="card-body">
+                        <div id="elementos" class="card-body">
                             <h5 class="card-title">
                                 {{ topic.tema }}
                             </h5>
@@ -360,7 +362,10 @@ export default {
         },
 
         async listartodos() {
-            const respuesta = await axios.get("/topics/filtrar/" + "DIPUTACION", {});
+            const respuesta = await axios.get(
+                "/topics/filtrar/" + "DIPUTACION",
+                {}
+            );
             // const respuesta = await axios.get("topics"); //recupera todos los topics
             this.topics = respuesta.data;
         },
@@ -372,11 +377,14 @@ export default {
             //alert(inputtextobuscado);
 
             // const respuesta =  axios.get("/filtrar/"+'ww', {
-            const respuesta = await axios.get("/topics/filtrar/" + inputtextobuscado, {
-                // params: {
-                //     textoafiltrar: "ww",
-                // },
-            });
+            const respuesta = await axios.get(
+                "/topics/filtrar/" + inputtextobuscado,
+                {
+                    // params: {
+                    //     textoafiltrar: "ww",
+                    // },
+                }
+            );
 
             this.topics = respuesta.data;
         },
@@ -428,17 +436,6 @@ export default {
 };
 </script>
 <style scoped>
-div {
-    margin: 1%;
-    padding: 2%;
-    background-color: rgb(250, 247, 242);
-    border: 1px solid grey;
-    border-radius: 20px;
-}
-div li {
-    margin-left: 3%;
-}
-
 h3 {
     background-color: darkblue;
     color: white;
@@ -452,19 +449,5 @@ a {
 }
 h3 a:visited {
     color: white;
-}
-a:hover {
-    text-decoration: underline;
-}
-
-h4 {
-    background-color: antiquewhite;
-}
-p {
-    border: 1px solid;
-    border-color: cornflowerblue;
-}
-div {
-    border-top: 250px;
 }
 </style>

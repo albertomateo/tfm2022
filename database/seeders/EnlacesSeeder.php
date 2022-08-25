@@ -26,6 +26,11 @@ class EnlacesSeeder extends Seeder
         ]);
 
         DB::table('enlaces')->insert([
+            'titulo' => "Servicio Provincial de Recaudación y Gestion Tributaria",
+            'sitioweb' => "https://sprygt.dipucadiz.es/"
+        ]);
+
+        DB::table('enlaces')->insert([
             'titulo' => "Ayuntamiento de Sanlucar de Barrameda",
             'sitioweb' => "https://www.sanlucardebarrameda.es/"
         ]);
@@ -39,7 +44,17 @@ class EnlacesSeeder extends Seeder
             'titulo' => "Patronato de turismo Sanlucar de Bda.",
             'sitioweb' => "https://www.sanlucarturismo.com/"
         ]);
-        for ($i = 0; $i < 5; $i++) {
+        DB::table('enlaces')->insert([
+            'titulo' => "Patronato de deportes Sanlucar de Bda.",
+            'sitioweb' => "https://www.sanlucardebarrameda.es/"
+        ]);
+
+        DB::table('enlaces')->insert([
+            'titulo' => "Gerencia de Urbanismo",
+            'sitioweb' => "http://www.gmusanlucar.es/"
+        ]);
+        
+        for ($i = 0; $i < 7; $i++) {
             DB::table('enlaces')->insert([
                 'titulo' => Str::random(10),
                 'sitioweb' => Str::random(10)

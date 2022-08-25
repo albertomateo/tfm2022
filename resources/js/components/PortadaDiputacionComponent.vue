@@ -48,11 +48,11 @@ export default {};
 </script>
 
 <style scoped>
-div{
+div {
     margin: 1%;
     padding: 2%;
-    background-color:rgb(250, 247, 242);
-border:1px solid grey;
+    background-color: rgb(250, 247, 242);
+    border: 1px solid grey;
     border-radius: 20px;
 }
 div li {
@@ -74,6 +74,6 @@ h3 a:visited {
     color: white;
 }
 a:hover {
-  text-decoration: underline;
+    text-decoration: underline;
 }
 </style>

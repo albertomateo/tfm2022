@@ -7,40 +7,15 @@ use App\Models\Anuncio;
 
 class AnuncioController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-
-    public function index()
-    {
-        return Anuncio::get();
-    }
-
-    //    public function index(Request $request) 
-    //    {
-    //         $anuncioname=null;
-    //         if ($request->has('anuncioname')){
-    //             $anuncioname=$request->anuncioname;
-    //             $anuncios=Anuncio::where('name','like','%'.$anuncioname.'%');
-    //         } else {
-    //             $anuncios=Anuncio::get();
-    //         }
-    //    }
+    // devuelve array de objetos con el campo a filtrar. Es un parametro opcional
     public function filtrar($textoafiltrar = '%')
     {
-
-        if (isset($textoafiltrar)) {
-       
-                return Anuncio::where('titulo', 'like', '%' . $textoafiltrar . '%')
-                    ->orWhere('descripcion', 'like', '%' . $textoafiltrar . '%')->get();
-
-        } else {
-
+        if (isset($textoafiltrar)) { // si el parametro no esta vacio filtra
+            return Anuncio::where('titulo', 'like', '%' . $textoafiltrar . '%')
+                ->orWhere('descripcion', 'like', '%' . $textoafiltrar . '%')->get();
+        } else { // si no 
             return Anuncio::all();
         }
-
         if (is_null($textoafiltrar)) {
             return Anuncio::all();
         }
@@ -52,16 +27,42 @@ class AnuncioController extends Controller
 
 
     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+
+    public function index()                //devuelve todos
+    {
+        return Anuncio::get();
+    }
+
+    // esto prodria hacerse para utilizar el metodo index para filtrar
+    //    public function index(Request $request) 
+    //    {
+    //         $anuncioname=null;
+    //         if ($request->has('anuncioname')){
+    //             $anuncioname=$request->anuncioname;
+    //             $anuncios=Anuncio::where('name','like','%'.$anuncioname.'%');
+    //         } else {
+    //             $anuncios=Anuncio::get();
+    //         }
+    //    }
+
+
+
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
-
     {
         echo ("no usado create");
         //
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -69,7 +70,7 @@ class AnuncioController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request)     // crea y graba un nuevo registro
     {
         try {
             // dd($request);
@@ -77,18 +78,18 @@ class AnuncioController extends Controller
             $anuncio->titulo = $request->titulo;
             $anuncio->descripcion = $request->descripcion;
             $anuncio->enlace = $request->enlace;
-            // $anuncio->enlace = $request->enlace;
-
-            if ($request->hasFile('documento_nuevo')) {
-
+            
+            if ($request->hasFile('documento_nuevo')) {   // si tiene un archivo adjunto lo mueve a carpeta
                 $archivo = $request->file('documento_nuevo');
                 $archivo->move(public_path() . '/DOCUMENTOS/', $archivo->getClientOriginalName());
-                $anuncio->documento = $archivo->getClientOriginalName();
+                $anuncio->documento = $archivo->getClientOriginalName();  // pone en el campo el nombre del archivo
             }
 
             $anuncio->save();
-            return response()->json(['message' => 'Registro creado y Archivo subido '], 200);
-        } catch (\Exception $e) {
+           
+            return response()->json(['message' => 'Registro creado y Archivo subido '], 200); // si es correcto lo devuelve en mensaje
+
+        } catch (\Exception $e) { // si hay error lo devuelve en el mensaje
             return response()->json([
                 'message' => $e->getMessage()
             ]);
@@ -101,7 +102,7 @@ class AnuncioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Anuncio $anuncio)
+    public function show(Anuncio $anuncio)  // muestra un elemento del array de objetos recibido
     {
         return $anuncio;
     }
@@ -114,7 +115,7 @@ class AnuncioController extends Controller
      */
     public function edit($id)
     {
-        //
+        //  echo no usado
     }
 
     /**
@@ -124,22 +125,24 @@ class AnuncioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request)      // Para Actualizar Registros 
     {
-        $anuncio = Anuncio::find($request->id);
-        // Getting values from the blade template form
-        $anuncio->titulo =  $request->titulo;
+        $anuncio = Anuncio::find($request->id);   // busca el objeto con ese id
+        // Getting values from the  form
+        $anuncio->titulo =  $request->titulo;     // uno a uno actualiza los campos
         $anuncio->descripcion = $request->descripcion;
         $anuncio->enlace = $request->enlace;
         $anuncio->documento = $request->documento;
-        if ($request->hasFile('documento_nuevo')) {
+        if ($request->hasFile('documento_nuevo')) {  // Si se adjunta archivo se copia y se actualiza campo
 
             $archivo = $request->file('pdf');
             $archivo->move(public_path() . '/DOCUMENTOS/', $archivo->getClientOriginalName());
             $anuncio->documento = $archivo->getClientOriginalName();
         }
-        $anuncio->save();
+
+        $anuncio->save();  //graba
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -147,7 +150,7 @@ class AnuncioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Anuncio $anuncio)
+    public function destroy(Anuncio $anuncio)   // a veces se usa delete en vez de destroy
     {
         $anuncio->delete();
     }

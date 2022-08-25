@@ -20,11 +20,11 @@
  // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
  
  Vue.component('example-component', require('./components/ExampleComponent.vue').default);
- Vue.component('hola-mundo-component', require('./components/HolaMundoComponent.vue').default);
+//  Vue.component('hola-mundo-component', require('./components/HolaMundoComponent.vue').default);
  Vue.component('anuncio-component', require('./components/AnuncioComponent.vue').default);
- Vue.component('anuncio-vista', require('./components/VistaAnuncioComponent.vue').default);
- Vue.component('anuncio-componentpdf', require('./components/AnuncioComponentPDF.vue').default);
- Vue.component('pruebasubida-component', require('./components/PruebaSubida.vue').default);
+//  Vue.component('anuncio-vista', require('./components/VistaAnuncioComponent.vue').default);
+//  Vue.component('anuncio-componentpdf', require('./components/AnuncioComponentPDF.vue').default);
+//  Vue.component('pruebasubida-component', require('./components/PruebaSubida.vue').default);
  Vue.component('enlace-component', require('./components/EnlaceComponent.vue').default);
 
  Vue.component('topic-component', require('./components/TopicComponent.vue').default);

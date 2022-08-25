@@ -7,6 +7,24 @@ use App\Models\Enlace;
 
 class EnlaceController extends Controller
 {
+    // devuelve array de objetos con el campo a filtrar. Es un parametro opcional
+    public function filtrar($textoafiltrar = '%')
+    {
+        if (isset($textoafiltrar)) { // si el parametro no esta vacio filtra
+            return Enlace::where('titulo', 'like', '%' . $textoafiltrar . '%')
+                ->orWhere('sitioweb', 'like', '%' . $textoafiltrar . '%')->get();
+        } else { // si no 
+            return Enlace::all();
+        }
+        if (is_null($textoafiltrar)) {
+            return Enlace::all();
+        }
+        if (empty($textoafiltrar)) {
+            return Enlace::all();
+        }
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -17,26 +35,17 @@ class EnlaceController extends Controller
     {
         return Enlace::get();
     }
-
-    public function filtrar($textoafiltrar = '%')
-    {
-
-        if (isset($textoafiltrar)) {
-            return Enlace::where('tema', 'like', '%' . $textoafiltrar . '%')
-                ->orWhere('detalle', 'like', '%' . $textoafiltrar . '%')
-                ->orWhere('organismo', 'like', '%' . $textoafiltrar . '%')->get();
-        } else {
-
-            return Enlace::all();
-        }
-
-        if (is_null($textoafiltrar)) {
-            return Enlace::all();
-        }
-        if (empty($textoafiltrar)) {
-            return Enlace::all();
-        }
-    }
+    // esto prodria hacerse para utilizar el metodo index para filtrar
+    //    public function index(Request $request) 
+    //    {
+    //         $enlacename=null;
+    //         if ($request->has('enlacename')){
+    //             $enlacename=$request->enlacename;
+    //             $enlaces=Enlace::where('name','like','%'.$enlacename.'%');
+    //         } else {
+    //             $enlaces=Enlace::get();
+    //         }
+    //    }
 
 
 
@@ -46,11 +55,10 @@ class EnlaceController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-
     {
-        echo ("no usado create");
-        //
+        // echo ("no usado create");
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -58,7 +66,7 @@ class EnlaceController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request)  // crea y graba un nuevo registro
     {
         try {
             // dd($request);
@@ -67,11 +75,13 @@ class EnlaceController extends Controller
             $enlace->sitioweb = $request->sitioweb;
 
             $enlace->save();
-            return response()->json(['message' => 'Registro creado '], 200);
-        } catch (\Exception $e) {
+
+            return response()->json(['message' => 'Registro creado '], 200); //creacion correcta
+
+        } catch (\Exception $e) {  // si hay error lo devuelve en el mensaje
             return response()->json([
                 'message' => $e->getMessage()
-            ]);
+            ], 400);
         }
     }
 
@@ -81,7 +91,7 @@ class EnlaceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Enlace $enlace)
+    public function show(Enlace $enlace) // muestra un elemento del array de objetos recibido
     {
         return $enlace;
     }
@@ -94,7 +104,7 @@ class EnlaceController extends Controller
      */
     public function edit($id)
     {
-        //
+        //  echo no usado
     }
 
     /**
@@ -104,25 +114,22 @@ class EnlaceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request)   // Para Actualizar Registros
     {
-        $enlace = Enlace::find($request->id);
+        try {
+            $enlace = Enlace::find($request->id);  // busca el objeto con ese id
+            // Getting values from  form
 
-        // if (count($enlace) == 1) {
-            // Getting values from the blade template form
-
-            $enlace->titulo = $request->titulo;
+            $enlace->titulo = $request->titulo;   // uno a uno actualiza los campos
             $enlace->sitioweb = $request->sitioweb;
-            $enlace->save();
-        // } else {
-        //     // Getting values from the blade template form
+            $enlace->save();                      // graba
+            return response()->json(['message' => 'Registro guardado '], 200); //creacion correcta
 
-        //     $enlace = new Enlace();
-        //     $enlace->titulo = $request->titulo;
-        //     $enlace->sitioweb = $request->sitioweb;
-
-        //     $enlace->save();
-        // }
+        } catch (\Exception $e) {  // si hay error lo devuelve en el mensaje
+            return response()->json([
+                'message' => $e->getMessage()
+            ], 400);
+        }
     }
 
     /**
@@ -131,7 +138,7 @@ class EnlaceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Enlace $enlace)
+    public function destroy(Enlace $enlace)  // a veces se usa delete
     {
         $enlace->delete();
     }

@@ -43,8 +43,12 @@ class Conversacion extends Conversation
             }
         });
     }
-    // REDIRECCIONES MAS FRECUENTES
 
+
+    // REDIRECCIONES - Array que devuelve los Strings para redirigir
+    // Hasta el momento no he encontrdo una forma mejor de redirigir a una web interna o externa
+    // parametros de entrada Servicio
+    // devuelve Strings que en pantalla se ve como un enlace
 
     public function redirecciones($servicio)
     {
@@ -90,6 +94,10 @@ class Conversacion extends Conversation
         return  $enlacedeservicios[$servicio];
     }
 
+
+    // CREA ARRAY DE BOTONES
+    // Parametros de entrada: Codigo del servicio
+    // Salida: Array de botones que contengan en el tipo o grupo de ellos 
     public function creaarraybotones($tipo)
     {
 
@@ -193,32 +201,16 @@ class Conversacion extends Conversation
         return $buttonArray;
     }
 
-    public function adecuar($frase)
-    {
-
-        $this->bot->channelStorage()->save([
-            'frase del usuario' => $frase,
-        ]);
-
-        if (preg_match("/error/i", $frase)) { return "recurso";}
-        if (preg_match("/ya no es mi/i", $frase)) { return "recurso";}
-        if (preg_match("/pago mucho/i", $frase)) { return "catastro";}
-        if (preg_match("/recibo/i", $frase)) { return "recibo";}
-        if (preg_match("/contribucion/i", $frase)) { return "recibo";}
-        if (preg_match("/sello/i", $frase)) { return "recibo";}
-        if (preg_match("/pagar/i", $frase)) { return "pago";}
-        if (preg_match("/hacienda/i", $frase)) { return "catastro";}
-        if (preg_match("/dependencia/i", $frase)) { return "ayuda";}
-        if (preg_match("/familia/i", $frase)) { return "bonificacion";}
-        if (preg_match("/basura/i", $frase)) { return "rentas";}
-        if (preg_match("/ejecutiva/i", $frase)) { return "Diputacion";}
-
-
-
-return $frase;
-    }
+    // CREA ARRAY DE BOTONES
+    // Parametros de entrada: String 
+    // Salida: Array de botones cuya descripcion contenga el string de entrada
     public function creaarraybotonesDescripcion($descripcion)
     {
+        // antes de buscar por descripcion adecua el texto introducido
+        // ejemplo el usuario dice vengo por un error en .... 
+        // como la frase contiene la palabrar "error"
+        // deducimos que quiere algo relacionado con "recursos"
+        $descripcion=$this->adecuar($descripcion);
         $servicios = array(
             "01" => "Rentas",
             "02" => "ERESSAN",
@@ -252,7 +244,7 @@ return $frase;
             "O2" => "Otros - Direccion",
         );
 
-        $descripcion=$this->adecuar($descripcion);
+
         $buttonArray = [];
         // general
 
@@ -267,11 +259,40 @@ return $frase;
 
         return $buttonArray;
     }
-    public function DescripcionNivel($texto_a_buscar)
+
+
+    // ADECUA LOS TEXTOS
+    // Busca alguna correspondencia entre lo que el usuario escribe y lo que creemos necesita
+    // Necesario conocer el dominio de la empresa
+    // Parametros de entrada: String 
+    // Salida: String con nuevo texto mas adecuado
+    public function adecuar($frase)
+    {
+        // nos interesa que se grabe para tener un seguimiento de uso
+        $this->bot->channelStorage()->save([
+            'frase del usuario' => $frase,
+        ]);
+
+        if (preg_match("/error/i", $frase)) { return "recurso";}
+        if (preg_match("/ya no es mi/i", $frase)) { return "recurso";}
+        if (preg_match("/pago mucho/i", $frase)) { return "catastro";}
+        if (preg_match("/recibo/i", $frase)) { return "recibo";}
+        if (preg_match("/contribucion/i", $frase)) { return "recibo";}
+        if (preg_match("/sello/i", $frase)) { return "recibo";}
+        if (preg_match("/pagar/i", $frase)) { return "pago";}
+        if (preg_match("/hacienda/i", $frase)) { return "catastro";}
+        if (preg_match("/dependencia/i", $frase)) { return "ayuda";}
+        if (preg_match("/familia/i", $frase)) { return "bonificacion";}
+        if (preg_match("/basura/i", $frase)) { return "rentas";}
+        if (preg_match("/ejecutiva/i", $frase)) { return "Diputacion";}
+
+return $frase;
+    }
+
+
+    public function DescripcionNivel($texto_a_buscar)  // nivel para cuando escribe texto
     {
         $buttonArray = $this->creaarraybotonesDescripcion($texto_a_buscar);
-
-
 
         $question = Question::create("Servicios con la palabra: "."$texto_a_buscar")
             ->fallback('Unable to ask question')
@@ -281,44 +302,34 @@ return $frase;
         return $this->ask($question, function (Answer $answer) {
             if ($answer->isInteractiveMessageReply()) {
 
-                //$this->SegundoNivel($answer->getValue() );
-
-                // if ($answer->getValue() === '1') {
-                //     // $this->say(' <a href="../eressan" target="_top"><h1>pulsa para ir a la Recaudacion Voluntaria de Liquidaciones</h1></a>');
-                // } else {
-                //     $this->say(Inspiring::quote());
-                // }
             } else {
                 $this->DescripcionNivel($answer->getText());
             }
         });
     }
-    public function PrimerNivel()
+    public function PrimerNivel()  // nivel 1 pensado para los botones. Pero puede escribir texto y salta a DescripcionNivel
     {
-        $buttonArray = $this->creaarraybotones("0");
+        $buttonArray = $this->creaarraybotones("0"); // se llama a la funcion para crear los botones.
+        // Nos devuelve los que comienzan por cero, es decir las 4 entidades + (Otros. codigo 9)
 
         $question = Question::create("Servicios principales del edificio". " Si lo desea abajo puede escribir alguna palabra a buscar")
             ->fallback('Unable to ask question')
             ->callbackId('ask_reason')
-            ->addButtons($buttonArray);
+            ->addButtons($buttonArray); // Aqui añadimos el array de botones.  Mejora: Boton salir
 
         return $this->ask($question, function (Answer $answer) {
-            if ($answer->isInteractiveMessageReply()) {
-
-                $this->SegundoNivel($answer->getValue());
+            if ($answer->isInteractiveMessageReply()) {  // si pulsa un boton,  
+                $this->SegundoNivel($answer->getValue());  // llamo al segundo nivel y le paso el texto del boton pulsado
             } else {
-                $this->DescripcionNivel($answer->getText());
+                $this->DescripcionNivel($answer->getText());  // si escribe texto voy al nivel de textos de entrada
             }
         });
     }
 
-    public function SegundoNivel($respuestaPrimerNivel)
+    public function SegundoNivel($respuestaPrimerNivel)  // Recibe la respuesta de pulsar un boton en nivel 1
+    // No se implementan mas niveles por no complicar todo al usuario
     {
-
         $buttonArray = $this->creaarraybotones($respuestaPrimerNivel);
-
-
-
         $question = Question::create("Servicios del organismo: ".$respuestaPrimerNivel )
             ->fallback('Unable to ask question')
             ->callbackId('ask_reason')
@@ -326,13 +337,7 @@ return $frase;
 
         return $this->ask($question, function (Answer $answer) {
             if ($answer->isInteractiveMessageReply()) {
-
                 $this->say($this->redirecciones($answer->getValue()));
-                // if ($answer->getValue() === '1') {
-                //     // $this->say(' <a href="../eressan" target="_top"><h1>pulsa para ir a la Recaudacion Voluntaria de Liquidaciones</h1></a>');
-                // } else {
-                //     // $this->say(Inspiring::quote());
-                // }
             } else {
                 $this->DescripcionNivel($answer->getText());
             }
@@ -354,44 +359,7 @@ return $frase;
 }
 
 
-/*     public function iraSedeElectronicaAyto($botman)
-    {
-        $botman->reply(' <a href="../eressan" target="_top"><h1>pulsa para ir a Recaudacion Voluntaria de Liquidaciones</h1></a>');
-    }
-    public function iraEressan($botman)
-    {
-        $botman->reply(' <a href="../eressan" target="_top"><h1>pulsa para ir a Recaudacion Voluntaria de Liquidaciones</h1></a>');
-    }
-    public function iraCatatroInterna()
-    {
-        $this->reply(' <a href="../catastro" target="_top"><h1>pulsa para ir a catastro </h1></a>');
-    }
-    public function iraCatatroExterna($botman)
-    {
-        $botman->reply(' <a href="../catastro" target="_top"><h1>pulsa para ir a catastro </h1></a>');
-    }
-    public function iraDiputacionInterna($botman)
-    {
-        $botman->reply(' <a href="../catastro" target="_top"><h1>pulsa para ir a catastro </h1></a>');
-    }
-    public function iraDiputacionExterna($botman)
-    {
-        $botman->reply(' <a href="../catastro" target="_top"><h1>pulsa para ir a catastro </h1></a>');
-    }
-    public function iraDiputacionPagarRecibo($botman)
-    {
-        $botman->reply(' <a href="../catastro" target="_top"><h1>pulsa para ir a catastro </h1></a>');
-    }
-    public function iraDiputacionDomiciliarRecibo($botman)
-    {
-        $botman->reply(' <a href="../catastro" target="_top"><h1>pulsa para ir a catastro </h1></a>');
-    } */
-
-
-
+// desarrollo futuro. Obtener todo lo que se refiera a textos de json o de API
                     // $joke = json_decode(file_get_contents('http://api.icndb.com/jokes/random'));
                     // $joke =  json_decode(file_get_contents('http://localhost:8000/enlaces/5'));
-                    // return Redirect::to('http://heera.it');
-                    // return redirect()->intended('http://heera.it');
-                    // return redirect('https://stackoverflow.com/');
-                    // return redirect()->away('https://www.google.com');
+

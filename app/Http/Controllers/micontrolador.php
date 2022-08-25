@@ -1,5 +1,7 @@
 <?php
 
+// Prueba de controlador creado con la opciones get artisan make:controller micontrolador --resource
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;

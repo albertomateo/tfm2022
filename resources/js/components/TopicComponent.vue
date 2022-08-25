@@ -1,11 +1,88 @@
 <template>
-    <div>
-        <h3 class="text-center"><a href="/vistaTopics">Topics</a></h3>
+   <div id="cuerpo" class="container-fluid">
+        <h3 class="text-center"><a href="/vistaTopics">Todos los Temas</a></h3>
 
+        <!-- Boton filtrar -->
         <button class="btn btn-warning" @click="filtrarportexto()">
             filtrar
         </button>
         <input type="text" id="textobuscado" size="28" />
+
+        <!-- Pintamos la tabla -->
+
+        <!-- </table>
+        <table class="table table-hover table table-bordered"> -->
+
+        <!-- _____________________________________  -->
+
+        <!-- USUARIO REGISTRADO -->
+        <!-- _____________________________________ -->
+
+        <!-- Seccion con los campos y botones para editar o crear registros -->
+
+        <form v-if="user_id" id="menu_insercion">
+            <!-- <form action="/action_page.php"> -->
+            <div class="form-group">
+                <label for="id_nuevo">id</label>
+                <input type="text" class="form-control" id="id_nuevo" />
+            </div>
+
+            <div class="form-group">
+                <label for="organismo_nuevo"> Organismo </label>
+                <input type="text" class="form-control" id="organismo_nuevo" />
+            </div>
+            <div class="form-group">
+                <label for="tema_nuevo">Tema </label>
+                <input type="text" class="form-control" id="tema_nuevo" />
+            </div>
+
+            <div class="form-group">
+                <label for="detalle_nuevo">Detalle </label>
+                <input type="text" class="form-control" id="detalle_nuevo" />
+            </div>
+
+            <div class="form-group">
+                <label for="observaciones_nuevo">Observaciones :</label>
+                <input
+                    type="text"
+                    class="form-control"
+                    id="observaciones_nuevo"
+                />
+            </div>
+
+            <div class="form-group">
+                <label for="enlace_nuevo">Enlace</label>
+                <input type="text" class="form-control" id="enlace_nuevo" />
+            </div>
+
+            <div class="form-group">
+                <label for="orden_nuevo">Orden </label>
+                <input type="text" class="form-control" id="orden_nuevo" />
+            </div>
+            <div class="form-group">
+                <label for="destacado_nuevo">Destacado :</label>
+                <input type="text" class="form-control" id="destacado_nuevo" />
+            </div>
+
+            <div class="form-group">
+                <label for="documento_nuevo">Documento</label>
+                <input type="text" class="form-control" id="documento_nuevo" />
+            </div>
+
+            <input class="form-control" type="file" id="documentoaadjuntar" />
+
+            <button @click="subir()" class="btn btn-warning">
+                subir y agregar
+            </button>
+            <button @click="guardareditado(topic.id)" class="btn btn-warning">
+                Guardar edicion
+            </button>
+            <button @click="agregarnuevo(topic.id)" class="btn btn-danger">
+                Agregar
+            </button>
+        </form>
+
+        <!-- cabecera de la tabla  - Para ambos- -->
 
         <table class="table table-hover table table-bordered">
             <thead>
@@ -15,89 +92,16 @@
                     <th scope="col">tema</th>
                     <th scope="col">detalle</th>
                     <th scope="col">observaciones</th>
-                    <th scope="col">enlace</th>
                     <th scope="col">orden</th>
                     <th scope="col">destacado</th>
+                    <th scope="col">enlace</th>
                     <th v-if="user_id" scope="col" colspan="2">Operacion</th>
                 </tr>
 
-                <tr v-else>
+                <!-- <tr v-else>
                     <th scope="col">Topic</th>
-                </tr>
+                </tr> -->
             </thead>
-            <!-- </table>
-        <table class="table table-hover table table-bordered"> -->
-
-            <!-- _____________________________________  -->
-
-            <!-- USUARIO REGISTRADO -->
-            <!-- _____________________________________ -->
-
-            <!-- campos para editar o crear registros -->
-
-            <td v-if="user_id"><input type="text" id="id_nuevo" /></td>
-            <td v-if="user_id"><input type="text" id="organismo_nuevo" /></td>
-            <td v-if="user_id">
-                <textarea
-                    v-if="user_id"
-                    id="tema_nuevo"
-                    rows="3"
-                    cols="40"
-                ></textarea>
-            </td>
-            <td v-if="user_id">
-                <textarea
-                    v-if="user_id"
-                    id="detalle_nuevo"
-                    rows="3"
-                    cols="40"
-                ></textarea>
-            </td>
-            <td v-if="user_id">
-            <textarea
-                v-if="user_id"
-                id="observaciones_nuevo"
-                rows="3"
-                cols="40"
-            ></textarea>
-            </td>
-            <td v-if="user_id"><input type="text" id="orden_nuevo" /></td>
-            <td v-if="user_id"><input type="text" id="destacado_nuevo" /></td>
-            <td v-if="user_id"><input type="text" id="enlace_nuevo" /></td>
-            <td v-if="user_id">
-                <input type="text" id="documento_nuevo" />
-                <input
-                    v-if="user_id"
-                    class="form-control"
-                    type="file"
-                    id="documentoaadjuntar"
-                />
-                <button v-if="user_id" @click="subir()" class="btn btn-warning">
-                    subir y agregar
-                </button>
-            </td>
-
-            <td>
-                <button
-                    v-if="user_id"
-                    @click="guardareditado(topic.id)"
-                    class="btn btn-warning"
-                >
-                    Guardar edicion
-                </button>
-            </td>
-            <td>
-                <button
-                    v-if="user_id"
-                    @click="agregarnuevo(topic.id)"
-                    class="btn btn-danger"
-                >
-                    Agregar
-                </button>
-            </td>
-
-            <!-- </table>
-            <table class="table table-hover table table-bordered"> -->
 
             <!-- campos en modo edicion - Usuario Registrado -->
             <p></p>
@@ -167,12 +171,6 @@
                     </p>
 
                     <p>
-                        <!-- link: '@/assets/pdfs/folder/download.pdf', -->
-                        <!-- public_path() . '/DOCUMENTOS/' -->
-
-                        <!-- <a target="_blank" v-bind:href="topic.documento"
-                            >descargar pdf: {{ topic.documento }}</a
-                        > -->
                         <a
                             target="_blank"
                             v-bind:href="'/DOCUMENTOS/' + topic.documento"
@@ -194,7 +192,6 @@
 
 <script>
 import axios from "axios";
-import { list } from "postcss";
 
 export default {
     computed: {},
@@ -218,6 +215,22 @@ export default {
         };
     },
     methods: {
+        async filtrarportexto() {
+            var inputtextobuscado = // Recojemos lo escrito en el input texto a buscar
+                document.getElementById("textobuscado").value;
+            // alert(inputtextobuscado);
+            const respuesta = await axios.get(
+                // llamamos a la API con Axios
+                "/topics/filtrar/" + inputtextobuscado,
+                {
+                    // params: {
+                    //     textoafiltrar: "ww",
+                    // },
+                }
+            );
+            this.topics = respuesta.data; // almacenamos la respuesta en el array. Vue lo refresca automaticamente
+        },
+
         agregarnuevo() {
             var haydocumento = false;
             var nombredocumento = "";
@@ -233,15 +246,6 @@ export default {
                 nombredocumento = documento.value;
             }
 
-            //alert("hasta aqui hemos llegado");
-            // var inputdocumento = document.getElementById("archivonuevo2");
-            /*             var rutaynombredocumento2 = document
-                .getElementById("archivonuevo2")
-                .value.replace(
-                    "C:\\fakepath\\",
-                    "C:\\Users\\dell\\Desktop\\BACKEND\\"
-                );
- */
             this.topic.organismo =
                 document.getElementById("organismo_nuevo").value;
             this.topic.tema = document.getElementById("tema_nuevo").value;
@@ -315,6 +319,7 @@ export default {
 
             var inputenlace = document.getElementById("enlace_nuevo");
             inputenlace.value = enlace;
+
             var inputdocumento = document.getElementById("documento_nuevo");
             inputdocumento.value = documento;
         },
@@ -367,22 +372,7 @@ export default {
             const respuesta = await axios.get("topics"); //recupera todos los topics
             this.topics = respuesta.data;
         },
-        async filtrarportexto() {
-            // alert ("hola");
 
-            var inputtextobuscado =
-                document.getElementById("textobuscado").value;
-            //alert(inputtextobuscado);
-
-            // const respuesta =  axios.get("/filtrar/"+'ww', {
-            const respuesta = await axios.get("/filtrar/" + inputtextobuscado, {
-                // params: {
-                //     textoafiltrar: "ww",
-                // },
-            });
-
-            this.topics = respuesta.data;
-        },
         async borrarseleccionado(id) {
             const respuesta = await axios.delete("/topics/" + id); //borra el registro que tenga la id
             this.listartodos();
@@ -408,7 +398,7 @@ export default {
             this.topic.orden = inputorden.value;
 
             var inputdestacado = document.getElementById("destacado_nuevo");
-            this.topic.destacado = inputtema.inputdestacado;
+            this.topic.destacado = inputdestacado.value;
 
             var inputenlace = document.getElementById("enlace_nuevo");
             this.topic.enlace = inputenlace.value;
@@ -431,7 +421,43 @@ export default {
 };
 </script>
 <style scoped>
+h3 {
+    background-color: darkblue;
+    color: white;
+    padding: 0;
+    border: 0;
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+}
+h3 a:visited {
+    color: white;
+}
+a:hover {
+    text-decoration: underline;
+}
+table tr {
+    /*una fila por anuncio*/
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgb(176, 132, 57);
+    padding: 1em;
+    margin-bottom: 1em;
+    background-color: rgb(255, 255, 255);
+    border-radius: 20px;
+
+    /* width: 95%; */
+}
 div {
+    background-color: lightpink;
+    border: 1px solid rgb(14, 14, 14);
+    border-radius: 20px;
+    border-top: 250px;
+    padding: 2%;
+}
+/* div {
     background-color: rgb(250, 247, 242);
 }
 div li {
@@ -465,5 +491,5 @@ p {
 }
 div {
     border-top: 250px;
-}
+} */
 </style>

@@ -1,4 +1,5 @@
 <?php
+// lo usamos solo en un formulario blade , 100% Backend
 
 namespace App\Http\Controllers;
 
@@ -13,13 +14,12 @@ class InformacionController extends Controller
 
     protected function validateInformacion($request)
     {
-
         return Validator::make($request->all(), [
             'informacionTitulo' => ['required', 'string', 'max:20', 'min:2']
         ]);
     }
 
-    public function index(Request $request)
+    public function index(Request $request)   // index para mostrar todos o para filtrar
     {
         $informacionTitulo = null;
         if ($request->has('informacionTitulo')) {
@@ -35,27 +35,18 @@ class InformacionController extends Controller
 
     public function create()
     {
-        return view('informaciones.create');
+        return view('informaciones.create');  // vamos a la vista blade de insercion.
     }
 
-    public function store(Request $request)
+    public function store(Request $request)  // nuevo registro
     {
-
-        /*
-        $encontrado=Informacion::where('titulo', 'like', '%' . $request->informacionTitulo . '%')->count();
-        if ($encontrado>0)
-        {
-            return redirect()->route('informaciones.index')->with('success', 'Informacion ya existe');
-        }
-        if ($encontrado=0)
-        {
-            */
         $this->validateInformacion($request)->validate();
-        $informacion = new Informacion();
-        $informacion->seccion = $request->informacionSeccion;
+        $informacion = new Informacion();  // lo crea
+        $informacion->seccion = $request->informacionSeccion;  // lena los campos
         $informacion->titulo = $request->informacionTitulo;
         $informacion->contenido = $request->informacionContenido;
-        $informacion->save();
+        $informacion->save(); // lo guarda
+        // redirige a la vista indice con informacion de exito
         return redirect()->route('informaciones.index')->with('success', 'Informacion Creada correctamente');
         // }
     }
@@ -65,7 +56,7 @@ class InformacionController extends Controller
         return view('informaciones.create', ['informacion' => $informacion]);
     }
 
-    public function update(Request $request, Informacion $informacion)
+    public function update(Request $request, Informacion $informacion) // actualiza un registro
     {
         $this->validateInformacion($request)->validate();
         $informacion->seccion = $request->informacionSeccion;
@@ -75,7 +66,7 @@ class InformacionController extends Controller
         return redirect()->route('informaciones.index')->with('success', 'Informacion Actualizada correctamente');
     }
 
-    public function delete(Request $request, Informacion $informacion)
+    public function delete(Request $request, Informacion $informacion) // borra un registro
     {
         if ($informacion != null) {
             $informacion->delete();

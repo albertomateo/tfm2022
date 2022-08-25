@@ -43,12 +43,15 @@
         </div>
         <div class="col-md-3 themed-grid-col ">
 
+            <!-- pasamos en usuario autentificado desde la vista blade de laravel 
+            hasta el componente vue a traves de las props: -->
+
             <anuncio-component :user_id="{{json_encode(Auth::check())}}">
             </anuncio-component>
 
         </div>
 
-        
+
     </div>
 
 
