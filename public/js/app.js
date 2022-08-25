@@ -5915,6 +5915,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   computed: {// enlaces() {
     //     return enlaces.filter((enlace) => {
@@ -5929,7 +5930,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     //   });
     // },
   },
-  props: [],
+  props: ["user_id"],
   data: function data() {
     return {
       buscar_con_vmodel: "",
@@ -16192,7 +16193,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n@media (max-width: 30em) {\r\n    /* 30x16=480px*/\na[data-v-3bfaaa02] {\r\n        font-size: 0.8em;\n}\nmain[data-v-3bfaaa02] {\r\n        padding: 1 em, 2 em;\n}\nbody[data-v-3bfaaa02] {\r\n        background: rgba(6, 6, 45, 0.766);\n}\ntable tr[data-v-3bfaaa02] {\r\n        display: flex;\r\n        flex-direction: column;\r\n        border: 0px solid orange; \r\n        padding: 1em;\r\n        margin-bottom: 1em;\n}\ntable[data-v-3bfaaa02] {\r\n        border-collapse: collapse;\n}\ntr[data-v-3bfaaa02],\r\n    td[data-v-3bfaaa02] {\r\n        padding: 1px 1 px;\n}\n} /* fin de los estilos a aplicar cuando sea tamaño de mobil */\r\n/* \r\ntable {\r\n    border-collapse: collapse;\r\n    width: 100%;\r\n    margin: 1%;\r\n    padding: 2%;\r\n    background-color: rgb(250, 247, 242);\r\n\r\n    border-radius: 20px;\r\n} */\ndiv[data-v-3bfaaa02] {\r\n    background-color: rgb(250, 247, 242);\n}\ndiv li[data-v-3bfaaa02] {\r\n    margin-left: 3%;\n}\nh3[data-v-3bfaaa02] {\r\n    background-color: darkblue;\r\n    color: white;\r\n    padding: 0;\r\n    border: 0;\r\n    margin: 0;\n}\na[data-v-3bfaaa02] {\r\n    text-decoration: none;\n}\nh3 a[data-v-3bfaaa02]:visited {\r\n    color: white;\n}\na[data-v-3bfaaa02]:hover {\r\n    text-decoration: underline;\n}\nh4[data-v-3bfaaa02] {\r\n    background-color: antiquewhite;\n}\np[data-v-3bfaaa02] {\r\n    border: 1px solid;\r\n    border-color: cornflowerblue;\n}\ndiv[data-v-3bfaaa02] {\r\n    border-top: 250px;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n@media (max-width: 30em) {\r\n    /* 30x16=480px*/\na[data-v-3bfaaa02] {\r\n        font-size: 0.8em;\n}\nmain[data-v-3bfaaa02] {\r\n        padding: 1 em, 2 em;\n}\nbody[data-v-3bfaaa02] {\r\n        background: rgba(6, 6, 45, 0.766);\n}\ntable tr[data-v-3bfaaa02] {\r\n        display: flex;\r\n        flex-direction: column;\r\n        border: 0px solid orange;\r\n        padding: 1em;\r\n        margin-bottom: 1em;\n}\ntable[data-v-3bfaaa02] {\r\n        border-collapse: collapse;\n}\ntr[data-v-3bfaaa02],\r\n    td[data-v-3bfaaa02] {\r\n        padding: 1px 1 px;\n}\n} /* fin de los estilos a aplicar cuando sea tamaño de mobil */\r\n/* \r\ntable {\r\n    border-collapse: collapse;\r\n    width: 100%;\r\n    margin: 1%;\r\n    padding: 2%;\r\n    background-color: rgb(250, 247, 242);\r\n\r\n    border-radius: 20px;\r\n} */\ndiv[data-v-3bfaaa02] {\r\n    background-color: rgb(250, 247, 242);\n}\ndiv li[data-v-3bfaaa02] {\r\n    margin-left: 3%;\n}\nh3[data-v-3bfaaa02] {\r\n    background-color: darkblue;\r\n    color: white;\r\n    padding: 0;\r\n    border: 0;\r\n    margin: 0;\n}\na[data-v-3bfaaa02] {\r\n    text-decoration: none;\n}\nh3 a[data-v-3bfaaa02]:visited {\r\n    color: white;\n}\na[data-v-3bfaaa02]:hover {\r\n    text-decoration: underline;\n}\nh4[data-v-3bfaaa02] {\r\n    background-color: antiquewhite;\n}\np[data-v-3bfaaa02] {\r\n    border: 1px solid;\r\n    border-color: cornflowerblue;\n}\ndiv[data-v-3bfaaa02] {\r\n    border-top: 250px;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -40640,19 +40641,21 @@ var render = function () {
     "div",
     { staticClass: "container-fluid", attrs: { id: "cuerpo" } },
     [
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-info",
-          attrs: { id: "btn_mostrar_menu" },
-          on: {
-            click: function ($event) {
-              return _vm.mostrarMenuInsercion()
+      _vm.user_id
+        ? _c(
+            "button",
+            {
+              staticClass: "btn btn-info",
+              attrs: { id: "btn_mostrar_menu" },
+              on: {
+                click: function ($event) {
+                  return _vm.mostrarMenuInsercion()
+                },
+              },
             },
-          },
-        },
-        [_vm._v("\n          Mostrar Menu de Inserción\n      ")]
-      ),
+            [_vm._v("\n        Mostrar Menu de Inserción\n    ")]
+          )
+        : _vm._e(),
       _vm._v(" "),
       _c(
         "button",
@@ -40665,7 +40668,7 @@ var render = function () {
             },
           },
         },
-        [_vm._v("\n          Ocultar Menu de Inserción\n      ")]
+        [_vm._v("\n        Ocultar Menu de Inserción\n    ")]
       ),
       _vm._v(" "),
       _c("input", {
@@ -40766,7 +40769,7 @@ var render = function () {
       ),
       _vm._v(" "),
       _c("section", { staticClass: "data" }, [
-        _c("caption", [_vm._v("\n              Enlaces\n          ")]),
+        _c("caption", [_vm._v("\n            Enlaces\n        ")]),
         _vm._v(" "),
         _c("table", { staticClass: "table table-hover table table-bordered" }, [
           _vm._m(0),
@@ -40807,9 +40810,9 @@ var render = function () {
                       ])
                     : _c("span", [
                         _vm._v(
-                          "\n                              " +
+                          "\n                            " +
                             _vm._s(enlace.titulo) +
-                            "\n                          "
+                            "\n                        "
                         ),
                       ]),
                 ]),
@@ -40850,7 +40853,7 @@ var render = function () {
                           },
                           [
                             _vm._v(
-                              "\n                                  " +
+                              "\n                                " +
                                 _vm._s(enlace.sitioweb)
                             ),
                           ]
@@ -40858,83 +40861,87 @@ var render = function () {
                       ]),
                 ]),
                 _vm._v(" "),
-                _c("td", [
-                  _vm.modo_editar && _vm.registro_en_edicion == index
-                    ? _c("span", [
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-success",
-                            on: {
-                              click: function ($event) {
-                                return _vm.guardarDirectamenteEnBackloeditado(
-                                  enlace.id
-                                )
+                _vm.user_id
+                  ? _c("td", [
+                      _vm.modo_editar && _vm.registro_en_edicion == index
+                        ? _c("span", [
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-success",
+                                on: {
+                                  click: function ($event) {
+                                    return _vm.guardarDirectamenteEnBackloeditado(
+                                      enlace.id
+                                    )
+                                  },
+                                },
                               },
-                            },
-                          },
-                          [
-                            _vm._v(
-                              "\n                                  Guardar\n                              "
+                              [
+                                _vm._v(
+                                  "\n                                Guardar\n                            "
+                                ),
+                              ]
                             ),
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-primary",
-                            on: {
-                              click: function ($event) {
-                                return _vm.cancelarEdicionEnFrontend()
+                            _vm._v(" "),
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-primary",
+                                on: {
+                                  click: function ($event) {
+                                    return _vm.cancelarEdicionEnFrontend()
+                                  },
+                                },
                               },
-                            },
-                          },
-                          [
-                            _vm._v(
-                              "\n                                  Cancelar\n                              "
+                              [
+                                _vm._v(
+                                  "\n                                Cancelar\n                            "
+                                ),
+                              ]
                             ),
-                          ]
-                        ),
-                      ])
-                    : _c("span", [
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-warning",
-                            on: {
-                              click: function ($event) {
-                                return _vm.cambiarAModoEditarenFrontend(index)
+                          ])
+                        : _c("span", [
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-warning",
+                                on: {
+                                  click: function ($event) {
+                                    return _vm.cambiarAModoEditarenFrontend(
+                                      index
+                                    )
+                                  },
+                                },
                               },
-                            },
-                          },
-                          [
-                            _vm._v(
-                              "\n                                  Editar\n                              "
+                              [
+                                _vm._v(
+                                  "\n                                Editar\n                            "
+                                ),
+                              ]
                             ),
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-danger",
-                            on: {
-                              click: function ($event) {
-                                return _vm.borrarDirectamenteEnBackend(
-                                  enlace.id
-                                )
+                            _vm._v(" "),
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-danger",
+                                on: {
+                                  click: function ($event) {
+                                    return _vm.borrarDirectamenteEnBackend(
+                                      enlace.id
+                                    )
+                                  },
+                                },
                               },
-                            },
-                          },
-                          [
-                            _vm._v(
-                              "\n                                  Borrar\n                              "
+                              [
+                                _vm._v(
+                                  "\n                                Borrar\n                            "
+                                ),
+                              ]
                             ),
-                          ]
-                        ),
-                      ]),
-                ]),
+                          ]),
+                    ])
+                  : _vm._e(),
               ])
             }),
             0

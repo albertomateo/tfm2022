@@ -12,9 +12,9 @@
 </ul>
 <p><b>Nota:</b> Escoja la opcion correspondiente o utilice el asistente</p>
 <div  id="cuerpo"  class="contaniner sm fluid">
-
+@auth
     <a href="../../informaciones/create" class="btn btn-primary">Crear Informacion</a>
-
+    @endauth
     <div class="col-md-6">
         <form action="" method="POST">
             @csrf

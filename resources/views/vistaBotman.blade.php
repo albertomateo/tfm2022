@@ -42,7 +42,7 @@
             mainColor: '#c02026',
             aboutText: '',
             bubbleBackground: '#c02026',
-            desktopHeight: 600,
+            desktopHeight: 800,
             desktopWidth: 440,
             headerTextColor: '#fff',
             introMessage: "✋ Hola. Soy un Asistente Virtual. Voy a tratar de ayudarte. Escriba lo que necesita"

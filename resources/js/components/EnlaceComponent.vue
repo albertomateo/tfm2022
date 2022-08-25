@@ -1,9 +1,10 @@
 <template>
-  <div id="cuerpo" class="container-fluid">
+    <div id="cuerpo" class="container-fluid">
         <!-- <button @click="cargardebackend()" class="btn btn-success">
             Cargar manualmente datos de la base de datos
         </button> -->
         <button
+            v-if="user_id"
             id="btn_mostrar_menu"
             @click="mostrarMenuInsercion()"
             class="btn btn-info"
@@ -88,7 +89,7 @@
                                 {{ enlace.titulo }}
                             </span>
                         </td>
-                        <td>
+                        <td >
                             <!-- Si Modo Actualizacion es True, se muestra input en vez de registros normales -->
                             <span
                                 v-if="
@@ -113,7 +114,7 @@
                                 <!-- {{ enlace.sitioweb }}   si es solo mostrar el dato sin enlace -->
                             </span>
                         </td>
-                        <td>
+                        <td v-if="user_id">
                             <!-- Si es Modo Edicion, se muestran los botones guardar registro editado y cancelar edicion-->
                             <span
                                 v-if="
@@ -185,7 +186,7 @@ export default {
         // },
     },
 
-    props: [],
+    props: ["user_id"],
 
     data() {
         return {
@@ -199,7 +200,7 @@ export default {
 
             sitioweb_para_editar_con_vmodel: "", // Valor del Input sitioweb_para_editar_con_vmodel con v-model
 
-            texto_a_buscar_con_vmodel:"" , // Valor del texto a buscar . No es necesario inicializarlo
+            texto_a_buscar_con_vmodel: "", // Valor del texto a buscar . No es necesario inicializarlo
 
             modo_editar: false, // Ver o no ver los campos de edicion (y botones) en el listado
 
@@ -335,7 +336,7 @@ export default {
     table tr {
         display: flex;
         flex-direction: column;
-        border: 0px solid orange; 
+        border: 0px solid orange;
         padding: 1em;
         margin-bottom: 1em;
     }
