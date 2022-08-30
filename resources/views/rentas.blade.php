@@ -11,5 +11,6 @@
 </ul <p><b>Nota:</b> Escoja la opcion correspondiente o utilice el asistente</p>
 
 <topicrentas-component></topicrentas-component>
+@include('partials.footer')
 
 @endsection

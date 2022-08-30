@@ -11,6 +11,7 @@
 <p><b>Nota:</b> Escoja la opcion correspondiente o utilice el asistente</p>
 
 <TopicCatastro-component></TopicCatastro-component>
+@include('partials.footer')
 
 
 @endsection

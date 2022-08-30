@@ -70,18 +70,18 @@ class Conversacion extends Conversation
             "R1" => '<a href="../eressan" target="_top"><h1>Enlace a rentas</h1></a>)',
             "R2" => "Rentas - Recursos",
             "R8" => '<a href="https://citaprevia.sanlucardebarrameda.es" target="_top"><h1>Cita Previa</h1></a>',  // cita previa
-            "R9" => '<a href="https://sede.sanlucardebarrameda.es" target="_top"><h1>Registro de Rentas</h1></a>',//Rentas - Registro
+            "R9" => '<a href="https://sede.sanlucardebarrameda.es" target="_top"><h1>Registro de Rentas</h1></a>', //Rentas - Registro
 
             "E1" => "Eressan - Pago de Liquidaciones en Voluntaria ",
             "E2" => "Eressan - Pago de Ayuda en domicilio",
             "E3" => "Eressan - Pago de Alquiler de viviendas",
             "E4" => "Eressan - Fraccionamieento Aplazamientos de liq en voluntaria",
-            "E9" => '<a href="https://sede.sanlucardebarrameda.es" target="_top"><h1>Registro de ERESSAN</h1></a>',//ERESSAN - Registro
+            "E9" => '<a href="https://sede.sanlucardebarrameda.es" target="_top"><h1>Registro de ERESSAN</h1></a>', //ERESSAN - Registro
 
             "C1" => "Catastro - Declaraciones Catastrales 900D",
             "C2" => "Catastro - Alegaciones o Recursos contra Catastro",
             "C3" => "Catastro - Requerimientos y Audiencias de Catastro",
-            "C9" => '<a href="https://www.sedecatastro.gob.es/" target="_top"><h1>Registro de Catastro</h1></a>',//Catastro - Registro
+            "C9" => '<a href="https://www.sedecatastro.gob.es/" target="_top"><h1>Registro de Catastro</h1></a>', //Catastro - Registro
 
             "D1" => '<a href="https://sprygt.dipucadiz.es/pago-de-tributos" target="_top"><h1>Registro de Catastro</h1></a>',    //"Diputación - Pago de Recibos",
             "D2" => "Diputación - Domiciliaciones de recibos",
@@ -210,7 +210,7 @@ class Conversacion extends Conversation
         // ejemplo el usuario dice vengo por un error en .... 
         // como la frase contiene la palabrar "error"
         // deducimos que quiere algo relacionado con "recursos"
-        $descripcion=$this->adecuar($descripcion);
+        $descripcion = $this->adecuar($descripcion);
         $servicios = array(
             "01" => "Rentas",
             "02" => "ERESSAN",
@@ -273,20 +273,44 @@ class Conversacion extends Conversation
             'frase del usuario' => $frase,
         ]);
 
-        if (preg_match("/error/i", $frase)) { return "recurso";}
-        if (preg_match("/ya no es mi/i", $frase)) { return "recurso";}
-        if (preg_match("/pago mucho/i", $frase)) { return "catastro";}
-        if (preg_match("/recibo/i", $frase)) { return "recibo";}
-        if (preg_match("/contribucion/i", $frase)) { return "recibo";}
-        if (preg_match("/sello/i", $frase)) { return "recibo";}
-        if (preg_match("/pagar/i", $frase)) { return "pago";}
-        if (preg_match("/hacienda/i", $frase)) { return "catastro";}
-        if (preg_match("/dependencia/i", $frase)) { return "ayuda";}
-        if (preg_match("/familia/i", $frase)) { return "bonificacion";}
-        if (preg_match("/basura/i", $frase)) { return "rentas";}
-        if (preg_match("/ejecutiva/i", $frase)) { return "Diputacion";}
+        if (preg_match("/error/i", $frase)) {
+            return "recurso";
+        }
+        if (preg_match("/no es mi/i", $frase)) {
+            return "recurso";
+        }
+        if (preg_match("/pago mucho/i", $frase)) {
+            return "catastro";
+        }
+        if (preg_match("/recibo/i", $frase)) {
+            return "recibo";
+        }
+        if (preg_match("/contribucion/i", $frase)) {
+            return "recibo";
+        }
+        if (preg_match("/sello/i", $frase)) {
+            return "recibo";
+        }
+        if (preg_match("/pagar/i", $frase)) {
+            return "pago";
+        }
+        if (preg_match("/hacienda/i", $frase)) {
+            return "catastro";
+        }
+        if (preg_match("/dependencia/i", $frase)) {
+            return "ayuda";
+        }
+        if (preg_match("/familia/i", $frase)) {
+            return "bonificacion";
+        }
+        if (preg_match("/basura/i", $frase)) {
+            return "rentas";
+        }
+        if (preg_match("/ejecutiva/i", $frase)) {
+            return "Diputacion";
+        }
 
-return $frase;
+        return $frase;
     }
 
 
@@ -294,14 +318,13 @@ return $frase;
     {
         $buttonArray = $this->creaarraybotonesDescripcion($texto_a_buscar);
 
-        $question = Question::create("Servicios con la palabra: "."$texto_a_buscar")
+        $question = Question::create("Servicios con la palabra: " . "$texto_a_buscar")
             ->fallback('Unable to ask question')
             ->callbackId('ask_reason')
             ->addButtons($buttonArray);
 
         return $this->ask($question, function (Answer $answer) {
             if ($answer->isInteractiveMessageReply()) {
-
             } else {
                 $this->DescripcionNivel($answer->getText());
             }
@@ -312,7 +335,7 @@ return $frase;
         $buttonArray = $this->creaarraybotones("0"); // se llama a la funcion para crear los botones.
         // Nos devuelve los que comienzan por cero, es decir las 4 entidades + (Otros. codigo 9)
 
-        $question = Question::create("Servicios principales del edificio". " Si lo desea abajo puede escribir alguna palabra a buscar")
+        $question = Question::create("Servicios principales del edificio" . " Si lo desea abajo puede escribir alguna palabra a buscar")
             ->fallback('Unable to ask question')
             ->callbackId('ask_reason')
             ->addButtons($buttonArray); // Aqui añadimos el array de botones.  Mejora: Boton salir
@@ -330,7 +353,7 @@ return $frase;
     // No se implementan mas niveles por no complicar todo al usuario
     {
         $buttonArray = $this->creaarraybotones($respuestaPrimerNivel);
-        $question = Question::create("Servicios del organismo: ".$respuestaPrimerNivel )
+        $question = Question::create("Servicios del organismo: " . $respuestaPrimerNivel)
             ->fallback('Unable to ask question')
             ->callbackId('ask_reason')
             ->addButtons($buttonArray);
@@ -362,4 +385,3 @@ return $frase;
 // desarrollo futuro. Obtener todo lo que se refiera a textos de json o de API
                     // $joke = json_decode(file_get_contents('http://api.icndb.com/jokes/random'));
                     // $joke =  json_decode(file_get_contents('http://localhost:8000/enlaces/5'));
-

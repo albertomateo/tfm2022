@@ -34,6 +34,6 @@
     <p> // user is not authenticated...</p>
     @endguest
 
-
+    @include('partials.footer')
 </div>
 @endsection

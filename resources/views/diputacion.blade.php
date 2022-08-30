@@ -12,6 +12,6 @@
 <p><b>Nota:</b> Escoja la opcion correspondiente o utilice el asistente</p>
 
 <topicdiputacion-component></topicdiputacion-component>
-
+@include('partials.footer')
 
 @endsection

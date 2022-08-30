@@ -56,7 +56,7 @@
 
 
 
-
+    @include('partials.footer')
 
 
 

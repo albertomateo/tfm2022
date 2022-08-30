@@ -91,5 +91,6 @@
     @endif
     {{ $informaciones->links() }}
     @endsection
+    @include('partials.footer')
 
 </div>

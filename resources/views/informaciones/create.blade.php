@@ -45,4 +45,5 @@
     </div>
 </div>
 @endauth
+@include('partials.footer')
 @endsection

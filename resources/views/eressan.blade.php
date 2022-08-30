@@ -12,5 +12,6 @@
 <p style="clear:both"><b>Nota:</b> Escoja la opcion correspondiente o utilice el asistente</p>
 
 <topicEressan-component></topicEressan-component>
+@include('partials.footer')
 
 @endsection

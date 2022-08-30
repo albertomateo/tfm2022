@@ -35,5 +35,6 @@
   @endguest
 
 </div>
+@include('partials.footer')
 
 @endsection
