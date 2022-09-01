@@ -22,7 +22,7 @@
     <!-- Styles -->
     <!-- Estilos incorporados manualmente -->
 
-    <meta name="viewport"  content="width=device-width, initial-scale=1"/> <!-- Necesario para pantalla pequeña de movil -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" /> <!-- Necesario para pantalla pequeña de movil -->
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/estilosproyecto.css') }}" rel="stylesheet">
@@ -31,7 +31,7 @@
 
 <body>
     <div id="app">
-        <nav id="cabece" class="navbar navbar-expand-md navbar-light bg-light shadow-sm fixed-top" >
+        <nav id="cabece" class="navbar navbar-expand-md navbar-light bg-light shadow-sm fixed-top">
             <div class="container">
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -81,12 +81,12 @@
                             <a class="nav-link" href="./vistaEnlaces">Enlaces de Interes</a>
                         </li>
 
-                        
+
                         <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="./comollegar"><img src="/images/Antu_google-maps_svg_32.png" style="width:32px; height:32px"></img></a>
+                            <a class="nav-link" aria-current="page" href="./comollegar"><img src="/images/Antu_google-maps_svg_32.png" style="width:32px; height:32px"></img></a>
                         </li>
 
-                        
+
 
                     </ul>
                     <!-- <ul class="nav col-md-4 justify-content-end">
@@ -97,12 +97,24 @@
 
                     <!-- Right Side Of Navbar -->
                     @auth
+                    <li class="nav-item">
 
-                    <span class="p-1 mb-2 bg-danger text-white">Conectado como:{{ Auth::user()->name }}</span>
+                        <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
+                     document.getElementById('logout-form').submit();">
 
+                            <span class="p-1 mb-1 bg-danger text-white">Conectado como:{{ Auth::user()->name }}</span></a>
+                        </a>
+
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
+
+                    </li>
                     @endauth
                     @guest
-                    <span class="p-1 mb-1 bg-primary text-white">Público General</span>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('login') }}"> <span class="p-1 mb-1 bg-primary text-white">Público General</span>
+                    </li>
                     @endguest
 
 
@@ -139,7 +151,7 @@
                             @auth
                             <li class="nav-item">
 
-                                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                     {{ __('Logout') }}
                                 </a>
@@ -174,7 +186,7 @@
 
 
 
-            
+
         </main>
 
 
@@ -188,9 +200,9 @@
             </a> -->
 
             <ul class="nav col-md-10 justify-content-center">
-            <li class="nav-item"><a href="./" class="nav-link text-muted">INICIO</a></li>
-            <li class="nav-item"><a href="./vistabotman" class="nav-link text-muted">AYUDA</a></li>
-                        <li class="nav-item"><a href="./" class="nav-link text-muted">MAPA WEB</a></li>
+                <li class="nav-item"><a href="./" class="nav-link text-muted">INICIO</a></li>
+                <li class="nav-item"><a href="./vistabotman" class="nav-link text-muted">AYUDA</a></li>
+                <li class="nav-item"><a href="./" class="nav-link text-muted">MAPA WEB</a></li>
                 <li class="nav-item"><a href="./" class="nav-link ptext-muted">ACCESIBILIDAD WEB</a></li>
                 <li class="nav-item"><a href="./vistabotman" class="nav-link text-muted">AVISO LEGAL</a></li>
                 <li class="nav-item"><a href="./vistabotman" class="nav-link  text-muted">POLITICA DE COOKIES</a></li>

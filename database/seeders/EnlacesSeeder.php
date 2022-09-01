@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Enlace;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
@@ -15,6 +16,8 @@ class EnlacesSeeder extends Seeder
      */
     public function run()
     {
+
+
         DB::table('enlaces')->insert([
             'titulo' => "Pagina WEB de Catastro",
             'sitioweb' => "https://www.catastro.minhap.es/"
@@ -53,6 +56,8 @@ class EnlacesSeeder extends Seeder
             'titulo' => "Gerencia de Urbanismo",
             'sitioweb' => "http://www.gmusanlucar.es/"
         ]);
+
+        Enlace::factory()->count(15)->create(); // Ejecuto aqui el Factory
         
         for ($i = 0; $i < 7; $i++) {
             DB::table('enlaces')->insert([

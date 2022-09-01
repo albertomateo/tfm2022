@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Informacion;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -19,7 +20,10 @@ class DatabaseSeeder extends Seeder
         $this->call(UsuarioDefectoSeeder::class);
         $this->call(topicsSeeder::class);
         $this->call(InformacionesSeeder::class);
+        // factory('Curso\User', 50)->create();
         $this->call(EnlacesSeeder::class);
+        // \App\Models\Informacion::factory(10)->create();
+        // Informacion::factory()->count(50)->create();
 
     }
 }

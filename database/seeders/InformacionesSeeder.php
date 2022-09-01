@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Informacion;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
@@ -16,6 +17,8 @@ class InformacionesSeeder extends Seeder
      */
     public function run()
     {
+        Informacion::factory()->count(50)->create(); // Ejecuto aqui el Factory
+        
         for ($i = 0; $i < 4; $i++) {
             DB::table('informacions')->insert([
                 'seccion' => 'Seccion una',
@@ -46,5 +49,7 @@ class InformacionesSeeder extends Seeder
                 'orden' => Str::random(2)
             ]);
         }
+
+        
     }
 }

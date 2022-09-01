@@ -4,12 +4,19 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Anuncio;
+use Illuminate\Auth\Events\Validated;
 
 class AnuncioController extends Controller
 {
     // devuelve array de objetos con el campo a filtrar. Es un parametro opcional
     public function filtrar($textoafiltrar = '%')
     {
+        //quitamos los caracteres peligrosos
+        // $textoafiltrar = 'Te@x+t(*o# M*//a$li&)c--i::os/o';
+        $pattern = '/\@|\.|\;|\"|\<|\>|\#|\&|\$|\/|\:|\*|\(|\)|\+|\-|\%/i';
+        $textoafiltrar= preg_replace($pattern, '', $textoafiltrar);
+       
+
         if (isset($textoafiltrar)) { // si el parametro no esta vacio filtra
             return Anuncio::where('titulo', 'like', '%' . $textoafiltrar . '%')
                 ->orWhere('descripcion', 'like', '%' . $textoafiltrar . '%')->get();
