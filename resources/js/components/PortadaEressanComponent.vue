@@ -21,15 +21,15 @@
                 >citaprevia.sanlucardebarrameda.es</a
             >
         </p>
-        <div class="d-flex">
+        <div class="d-flex position-relative">
             <div>
                 <li>Mis datos: DNI, Teléfono, Email.</li>
                 <li>Centro: Comandancia de Marina</li>
                 <li>Servicio: Liquidaciones en voluntaria</li>
                 <li>Motivo de su cita: Escoja su opción</li>
-            </div>
-            <div>
-                <a href="/eressan" class="btn btn-outline-primary btn-lg"
+             </div>
+            <div> 
+                <a href="/eressan" class="btn btn-outline-primary btn-lg stretched-link"
                     >Entrar a ERESSAN</a
                 >
             </div>

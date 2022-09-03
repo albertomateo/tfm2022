@@ -23,7 +23,7 @@
             >
         </p>
 
-        <div class="d-flex">
+        <div class="d-flex position-relative">
             <div>
                 <li>Mis datos: DNI, Teléfono, Email.</li>
                 <li>Centro: Comandancia de Marina</li>
@@ -32,7 +32,7 @@
             </div>
 
             <div>
-                <a href="/rentas" class="btn btn-outline-primary btn-lg"
+                <a href="/rentas" class="btn btn-outline-primary btn-lg stretched-link"
                     >Entrar a Rentas</a
                 >
             </div>

@@ -41228,7 +41228,7 @@ var staticRenderFns = [
         ),
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "d-flex" }, [
+      _c("div", { staticClass: "d-flex position-relative" }, [
         _c("div", [
           _c("li", [_vm._v("Mis datos: DNI, Teléfono, Email.")]),
           _vm._v(" "),
@@ -41243,7 +41243,7 @@ var staticRenderFns = [
           _c(
             "a",
             {
-              staticClass: "btn btn-outline-primary btn-lg",
+              staticClass: "btn btn-outline-primary btn-lg stretched-link",
               attrs: { href: "/catastro" },
             },
             [_vm._v("Entrar a Catastro")]
@@ -41324,7 +41324,7 @@ var staticRenderFns = [
         ]),
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "d-flex" }, [
+      _c("div", { staticClass: "d-flex position-relative" }, [
         _c("div", [
           _c("li", [_vm._v("Proceso de Reserva")]),
           _vm._v(" "),
@@ -41339,7 +41339,7 @@ var staticRenderFns = [
           _c(
             "a",
             {
-              staticClass: "btn btn-outline-primary btn-lg",
+              staticClass: "btn btn-outline-primary btn-lg stretched-link",
               attrs: { href: "/diputacion" },
             },
             [_vm._v("Entrar a Diputación")]
@@ -41416,7 +41416,7 @@ var staticRenderFns = [
         ),
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "d-flex" }, [
+      _c("div", { staticClass: "d-flex position-relative" }, [
         _c("div", [
           _c("li", [_vm._v("Mis datos: DNI, Teléfono, Email.")]),
           _vm._v(" "),
@@ -41431,7 +41431,7 @@ var staticRenderFns = [
           _c(
             "a",
             {
-              staticClass: "btn btn-outline-primary btn-lg",
+              staticClass: "btn btn-outline-primary btn-lg stretched-link",
               attrs: { href: "/eressan" },
             },
             [_vm._v("Entrar a ERESSAN")]
@@ -41508,7 +41508,7 @@ var staticRenderFns = [
         ),
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "d-flex" }, [
+      _c("div", { staticClass: "d-flex position-relative" }, [
         _c("div", [
           _c("li", [_vm._v("Mis datos: DNI, Teléfono, Email.")]),
           _vm._v(" "),
@@ -41523,7 +41523,7 @@ var staticRenderFns = [
           _c(
             "a",
             {
-              staticClass: "btn btn-outline-primary btn-lg",
+              staticClass: "btn btn-outline-primary btn-lg stretched-link",
               attrs: { href: "/rentas" },
             },
             [_vm._v("Entrar a Rentas")]
@@ -41574,7 +41574,20 @@ var render = function () {
         [_vm._v("\n        filtrar\n    ")]
       ),
       _vm._v(" "),
-      _c("input", { attrs: { type: "text", id: "textobuscado", size: "28" } }),
+      _c("input", {
+        attrs: { type: "text", id: "textobuscado" },
+        on: {
+          keyup: function ($event) {
+            if (
+              !$event.type.indexOf("key") &&
+              _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+            ) {
+              return null
+            }
+            return _vm.filtrarportexto()
+          },
+        },
+      }),
       _vm._v(" "),
       _c("table", { staticClass: "table table-hover table table-bordered" }, [
         _c("thead", [
@@ -41936,7 +41949,20 @@ var render = function () {
         [_vm._v("\n         filtrar\n     ")]
       ),
       _vm._v(" "),
-      _c("input", { attrs: { type: "text", id: "textobuscado", size: "28" } }),
+      _c("input", {
+        attrs: { type: "text", id: "textobuscado" },
+        on: {
+          keyup: function ($event) {
+            if (
+              !$event.type.indexOf("key") &&
+              _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+            ) {
+              return null
+            }
+            return _vm.filtrarportexto()
+          },
+        },
+      }),
       _vm._v(" "),
       _vm.user_id
         ? _c("form", { attrs: { id: "menu_insercion" } }, [
@@ -42340,7 +42366,20 @@ var render = function () {
       [_vm._v("\n        filtrar\n    ")]
     ),
     _vm._v(" "),
-    _c("input", { attrs: { type: "text", id: "textobuscado", size: "28" } }),
+    _c("input", {
+      attrs: { type: "text", id: "textobuscado" },
+      on: {
+        keyup: function ($event) {
+          if (
+            !$event.type.indexOf("key") &&
+            _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+          ) {
+            return null
+          }
+          return _vm.filtrarportexto()
+        },
+      },
+    }),
     _vm._v(" "),
     _c("table", { staticClass: "table table-hover table table-bordered" }, [
       _c("thead", [
@@ -42689,7 +42728,20 @@ var render = function () {
       [_vm._v("\n        filtrar\n    ")]
     ),
     _vm._v(" "),
-    _c("input", { attrs: { type: "text", id: "textobuscado", size: "28" } }),
+    _c("input", {
+      attrs: { type: "text", id: "textobuscado" },
+      on: {
+        keyup: function ($event) {
+          if (
+            !$event.type.indexOf("key") &&
+            _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+          ) {
+            return null
+          }
+          return _vm.filtrarportexto()
+        },
+      },
+    }),
     _vm._v(" "),
     _c("table", { staticClass: "table table-hover table table-bordered" }, [
       _c("thead", [
@@ -43036,7 +43088,20 @@ var render = function () {
       [_vm._v("\n        filtrar\n    ")]
     ),
     _vm._v(" "),
-    _c("input", { attrs: { type: "text", id: "textobuscado", size: "28" } }),
+    _c("input", {
+      attrs: { type: "text", id: "textobuscado" },
+      on: {
+        keyup: function ($event) {
+          if (
+            !$event.type.indexOf("key") &&
+            _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+          ) {
+            return null
+          }
+          return _vm.filtrarportexto()
+        },
+      },
+    }),
     _vm._v(" "),
     _c("table", { staticClass: "table table-hover table table-bordered" }, [
       _c("thead", [

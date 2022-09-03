@@ -5,7 +5,7 @@
         <button class="btn btn-warning" @click="filtrarportexto()">
             filtrar
         </button>
-        <input type="text" id="textobuscado" size="28" />
+        <input type="text" id="textobuscado" @keyup.enter="filtrarportexto()" />
 
         <table class="table table-hover table table-bordered">
             <thead>

@@ -5,7 +5,7 @@
         <button class="btn btn-warning" @click="filtrarportexto()">
             filtrar
         </button>
-        <input type="text" id="textobuscado" size="28" />
+        <input type="text" id="textobuscado" @keyup.enter="filtrarportexto()" />
 
         <table class="table table-hover table table-bordered">
             <thead>
@@ -174,7 +174,7 @@
                             <p class="card-text">
                                 {{ topic.detalle }}
                             </p>
-                            <a href="#" class="card-link">{{ topic.enlace }}</a>
+                            <a href="#" class="card-link ">{{ topic.enlace }}</a>
                             <a href="#" class="card-link">{{
                                 topic.documento
                             }}</a>

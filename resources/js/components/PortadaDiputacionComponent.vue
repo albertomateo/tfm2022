@@ -27,7 +27,7 @@
         <p>
             <a href="http://www.citapreviasprygt.es">www.citapreviasprygt.es</a>
         </p>
-        <div class="d-flex">
+        <div class="d-flex position-relative">
             <div>
                 <li>Proceso de Reserva</li>
                 <li>Oficina: Sanlúcar de Barrameda</li>
@@ -36,7 +36,7 @@
             </div>
 
             <div>
-                <a href="/diputacion" class="btn btn-outline-primary btn-lg"
+                <a href="/diputacion" class="btn btn-outline-primary btn-lg stretched-link"
                     >Entrar a Diputación</a
                 >
             </div>

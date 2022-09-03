@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use App\Models\Anuncio;
 
 class AnunciosSeeder extends Seeder
 {
@@ -54,7 +55,7 @@ class AnunciosSeeder extends Seeder
             'enlace' => " https://www.boe.es/boe/dias/2022/08/12/pdfs/BOE-S-2022-193.pdf",
             'documento' => "publicacion_0.pdf"
         ]);
-
+        Anuncio::factory()->count(15)->create(); // Ejecuto aqui el Factory
         for ($i = 0; $i < 3; $i++) {
             DB::table('anuncios')->insert([
                 'titulo' => Str::random(10),

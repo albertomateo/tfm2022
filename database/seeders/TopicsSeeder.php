@@ -1,6 +1,8 @@
 <?php
 
 namespace Database\Seeders;
+
+use App\Models\Topic;
 use Illuminate\Support\Facades\DB;
 
 use Illuminate\Database\Seeder;
@@ -192,7 +194,7 @@ class TopicsSeeder extends Seeder
             'enlace' => '',
         ]);  
         
-
+        Topic::factory()->count(50)->create(); // Ejecuto aqui el Factory
 
         for  ($i =0;$i<5;$i++){
             DB::table('topics')->insert([

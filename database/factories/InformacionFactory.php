@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\Informacion;
+use App\Models\Informacion;  // lo pongo a mano
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class InformacionFactory extends Factory

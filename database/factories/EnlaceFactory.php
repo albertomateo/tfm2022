@@ -1,7 +1,7 @@
 <?php
 
 namespace Database\Factories;
-use App\Models\Enlace;
+use App\Models\Enlace; // lo pongo a mano
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
