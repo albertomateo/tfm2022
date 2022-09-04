@@ -325,6 +325,7 @@ class Conversacion extends Conversation
 
         return $this->ask($question, function (Answer $answer) {
             if ($answer->isInteractiveMessageReply()) {
+                $this->say($this->redirecciones($answer->getValue())); // se muestra enlace
             } else {
                 $this->DescripcionNivel($answer->getText());
             }

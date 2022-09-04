@@ -13,7 +13,7 @@ class AnuncioController extends Controller
     {
         //quitamos los caracteres peligrosos
         // $textoafiltrar = 'Te@x+t(*o# M*//a$li&)c--i::os/o';
-        $pattern = '/\@|\.|\;|\"|\<|\>|\#|\&|\$|\/|\:|\*|\(|\)|\+|\-|\%/i';
+        $pattern = '/\@|\.|\;|\"|\<|\>|\#|\&|\$|\/|\:|\*|\(|\)|\+|\-|\%|\=/i';
         $textoafiltrar= preg_replace($pattern, '', $textoafiltrar);
        
 

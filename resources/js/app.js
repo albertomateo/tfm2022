@@ -15,10 +15,13 @@
   *
   * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
   */
- 
+  
  // const files = require.context('./', true, /\.vue$/i)
  // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
- 
+ Vue.component('hermanomaestro-component', require('./components/HermanoMaestroComponent.vue').default);
+ Vue.component('hermanodetalle-component', require('./components/HermanoDetalleComponent.vue').default);
+ Vue.component('maestro-component', require('./components/MaestroComponent.vue').default);
+ Vue.component('detalle-component', require('./components/DetalleComponent.vue').default);
  Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 //  Vue.component('hola-mundo-component', require('./components/HolaMundoComponent.vue').default);
  Vue.component('anuncio-component', require('./components/AnuncioComponent.vue').default);
