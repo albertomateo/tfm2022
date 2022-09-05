@@ -90,6 +90,12 @@ class Conversacion extends Conversation
 
             "O1" => "Otros - Localizacion",
             "O2" => "Otros - Direccion",
+
+          
+            // "Salir" => '<a href="../vistabotman" target="_top"><h1>Salir del Asistente</h1></a>',  
+            "Salir" => '<a href="#" target="_top" onclick="window.location.reload(true)">', 
+            
+
         );
         return  $enlacedeservicios[$servicio];
     }
@@ -339,7 +345,8 @@ class Conversacion extends Conversation
         $question = Question::create("Servicios principales del edificio" . " Si lo desea abajo puede escribir alguna palabra a buscar")
             ->fallback('Unable to ask question')
             ->callbackId('ask_reason')
-            ->addButtons($buttonArray); // Aqui añadimos el array de botones.  Mejora: Boton salir
+            ->addButtons($buttonArray) // Aqui añadimos el array de botones.  Mejora: Boton salir
+            ->addButtons([ Button::create('---Salir---')->value('Salir'),]);
 
         return $this->ask($question, function (Answer $answer) {
             if ($answer->isInteractiveMessageReply()) {  // si pulsa un boton,  
@@ -357,11 +364,17 @@ class Conversacion extends Conversation
         $question = Question::create("Servicios del organismo: " . $respuestaPrimerNivel)
             ->fallback('Unable to ask question')
             ->callbackId('ask_reason')
-            ->addButtons($buttonArray);
+            ->addButtons($buttonArray)
+            ->addButtons([ Button::create('---Salir---')->value('Salir'),
+                // Button::create('Hell no!')->value('no'),
+            ]);
+            
+            ;
 
         return $this->ask($question, function (Answer $answer) {
             if ($answer->isInteractiveMessageReply()) {
                 $this->say($this->redirecciones($answer->getValue()));
+                
             } else {
                 $this->DescripcionNivel($answer->getText());
             }

@@ -197,7 +197,6 @@ export default {
 
             // Campos que se muestran en modo edicion
             titulo_para_editar_con_vmodel: "", // Valor del Input titulo_para_editar con v-model
-
             sitioweb_para_editar_con_vmodel: "", // Valor del Input sitioweb_para_editar_con_vmodel con v-model
 
             texto_a_buscar_con_vmodel: "", // Valor del texto a buscar . No es necesario inicializarlo
