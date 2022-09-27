@@ -11,7 +11,9 @@
 <!-- <br style="clear:both"/> -->
 <p style="clear:both"><b>Nota:</b> Escoja la opcion correspondiente o utilice el asistente</p>
 
-<topicEressan-component></topicEressan-component>
+
+<topicEressan-component></topicEressan-component>  <!-- Componente -->
+
 @include('partials.footer')
 
 @endsection

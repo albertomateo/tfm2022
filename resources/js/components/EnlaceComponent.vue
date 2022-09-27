@@ -252,7 +252,7 @@ export default {
                 .catch((error) => {
                     console.log("Error al guardar");
                 });
-            this.listartodos();
+            this.listartodos(); 
         },
 
         async guardarDirectamenteEnBackloeditado(id) {

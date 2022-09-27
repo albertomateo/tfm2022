@@ -19,7 +19,7 @@ use Illuminate\Foundation\Inspiring;
 
 use App\Conversations\Conversacion;
 
-
+ 
 
 class BotManController extends Controller
 {

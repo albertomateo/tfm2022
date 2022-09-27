@@ -26,7 +26,7 @@
     <p> // user is authenticated...</p>
     @endauth
 
-
+ 
 
     @guest
     <enlace-component :user_id="{{json_encode(Auth::check())}}">

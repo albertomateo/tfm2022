@@ -61,7 +61,7 @@ h3 {
     padding: 0;
     border: 0;
     margin: 0;
-}
+} 
 
 a {
     text-decoration: none;

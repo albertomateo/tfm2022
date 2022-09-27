@@ -14,6 +14,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -45,7 +46,11 @@
                         <li class="nav-item">
                             <a class="nav-link" aria-current="page" href="./">Inicio</a>
                         </li>
-
+                        <!-- <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="./">{{now()->isoFormat('H:mm:ss A')}}</a>
+                        </li> -->
+                        
+ 
                         <li class="nav-item">
                             <a class="nav-link" aria-current="page" href="./eressan">Eressan</a>
                         </li>

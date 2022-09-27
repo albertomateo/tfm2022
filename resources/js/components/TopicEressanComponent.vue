@@ -5,6 +5,11 @@
         <button class="btn btn-warning" @click="filtrarportexto()">
             filtrar
         </button>
+
+        <!-- <div>
+            <b-button @click="modalShow = !modalShow">Open Modal</b-button>
+            <b-modal v-model="modalShow">{{ variableprueba }}</b-modal>
+        </div> -->
         <input type="text" id="textobuscado" @keyup.enter="filtrarportexto()" />
 
         <table class="table table-hover table table-bordered">
@@ -100,7 +105,7 @@
             <table class="table table-hover table table-bordered"> -->
 
             <!-- campos en modo edicion - Usuario Registrado -->
-    
+
             <tbody v-if="user_id">
                 <tr v-for="topic in topics" :key="topic.id">
                     <th scope="row">{{ topic.id }}</th>
@@ -162,9 +167,8 @@
                         v-for="topic in topics"
                         :key="topic.id"
                         class="card col-md-2 themed-grid-col"
-                      
                     >
-                        <div id="elementos" class="card-body">
+                        <div id="elementos" class="card-body" >
                             <h5 class="card-title">
                                 {{ topic.tema }}
                             </h5>
@@ -174,10 +178,16 @@
                             <p class="card-text">
                                 {{ topic.detalle }}
                             </p>
-                            <a href="#" class="card-link ">{{ topic.enlace }}</a>
+                            <a href="#" class="card-link">{{ topic.enlace }}</a>
                             <a href="#" class="card-link">{{
                                 topic.documento
                             }}</a>
+
+                            <button  class="btn btn-success" @click="showMsgBoxOne(topic.observaciones)">Mas información</button>
+                            <!-- <b-button @click="modalShow = !modalShow"
+                                >Open Modal</b-button 
+                            > -->
+                            <!-- <b-modal v-model="modalShow">{{topic.id}}</b-modal> -->
                         </div>
                     </div>
                 </div>
@@ -192,12 +202,21 @@
 import axios from "axios";
 import { list } from "postcss";
 
+import Vue from "vue";
+import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
+
+import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap-vue/dist/bootstrap-vue.css";
+
 export default {
     computed: {},
+    // prueba de modal
 
     props: ["user_id"],
     data() {
         return {
+            variableprueba: "hola",
+            modalShow: false,
             mostrarElementosUsuarioAutentificado: false,
             topic: {
                 id: 0,
@@ -214,6 +233,16 @@ export default {
         };
     },
     methods: {
+        showMsgBoxOne($mensaje) {
+        this.boxOne = ''
+        this.$bvModal.msgBoxOk($mensaje)
+          .then(value => {
+            this.boxOne = value
+          })
+          .catch(err => {
+            // An error occurred
+          })
+      },
         agregarnuevo() {
             var haydocumento = false;
             var nombredocumento = "";
@@ -433,7 +462,7 @@ export default {
 };
 </script>
 <style scoped>
-
+    
 h3 {
     background-color: darkblue;
     color: white;
@@ -448,5 +477,4 @@ a {
 h3 a:visited {
     color: white;
 }
-
 </style>

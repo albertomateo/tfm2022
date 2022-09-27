@@ -76,14 +76,14 @@ class Conversacion extends Conversation
             "E2" => "Eressan - Pago de Ayuda en domicilio",
             "E3" => "Eressan - Pago de Alquiler de viviendas",
             "E4" => "Eressan - Fraccionamieento Aplazamientos de liq en voluntaria",
-            "E9" => '<a href="https://sede.sanlucardebarrameda.es" target="_top"><h1>Registro de ERESSAN</h1></a>', //ERESSAN - Registro
+            "E9" => '<a href="https://sede.sanlucardebarrameda.es" target="_blank"><h1>Registro de ERESSAN</h1></a>', //ERESSAN - Registro 
 
             "C1" => "Catastro - Declaraciones Catastrales 900D",
-            "C2" => "Catastro - Alegaciones o Recursos contra Catastro",
+            "C2" => '<a href="https://www.sedecatastro.gob.es/" target="_blank"><h1>Alegaciones o Recursos contra Catastro</h1></a>', //Catastro - Alegaciones o Recursos contra Catastro",
             "C3" => "Catastro - Requerimientos y Audiencias de Catastro",
             "C9" => '<a href="https://www.sedecatastro.gob.es/" target="_top"><h1>Registro de Catastro</h1></a>', //Catastro - Registro
 
-            "D1" => '<a href="https://sprygt.dipucadiz.es/pago-de-tributos" target="_top"><h1>Registro de Catastro</h1></a>',    //"Diputación - Pago de Recibos",
+            "D1" => '<a href="https://sprygt.dipucadiz.es/pago-de-tributos" target="_blank"><h1>Pago de Recibos en Diputación</h1></a>',    //"Diputación - Pago de Recibos",
             "D2" => "Diputación - Domiciliaciones de recibos",
             "D3" => "Diputación - Embargos de cuenta corriente",
             "D4" => "Diputación - Recursos",
@@ -94,7 +94,7 @@ class Conversacion extends Conversation
           
             // "Salir" => '<a href="../vistabotman" target="_top"><h1>Salir del Asistente</h1></a>',  
             "Salir" => '<a href="#" target="_top" onclick="window.location.reload(true)">', 
-            
+             
 
         );
         return  $enlacedeservicios[$servicio];

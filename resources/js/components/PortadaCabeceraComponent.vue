@@ -54,12 +54,12 @@
                 >GESTION CATASTRAL</a
             >
         </P>
-    </div>
+    </div> 
 </template>
 <style scoped>
 div.componente {
     border: 0px, 0px, 0px, 0px solid #000000;
-    margin: 25px;
+    margin: 50px;
 }
 img {
     padding: 0cm;

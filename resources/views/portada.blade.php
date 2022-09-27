@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<cabeceraportada-component></cabeceraportada-component>
+<cabeceraportada-component></cabeceraportada-component> 
 <div class="container-fluid">
 
 
